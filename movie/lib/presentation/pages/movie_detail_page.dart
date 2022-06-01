@@ -31,7 +31,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       Provider.of<MovieDetailNotifier>(context, listen: false)
           .fetchMovieDetail(widget.id);
       Provider.of<MovieDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+          .loadFavoriteStatus(widget.id);
     });
   }
 
@@ -47,7 +47,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             return MovieDetailContent(
               movie: movie,
               recommendations: provider.recommendations,
-              isAddedToWatchlist: provider.isAddedToWatchlist,
+              isAddedToFavorite: provider.isAddedToFavorite,
             );
           } else {
             return Text(provider.message);
@@ -61,12 +61,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 class MovieDetailContent extends StatelessWidget {
   final MovieDetail movie;
   final List<Movie> recommendations;
-  final bool isAddedToWatchlist;
+  final bool isAddedToFavorite;
   const MovieDetailContent({
     Key? key,
     required this.movie,
     required this.recommendations,
-    required this.isAddedToWatchlist,
+    required this.isAddedToFavorite,
   }) : super(key: key);
 
   @override
@@ -120,6 +120,7 @@ class MovieDetailContent extends StatelessWidget {
                     style: kHeading5.copyWith(
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.2,
+                      color: Color.fromRGBO(100, 100, 100, 1)
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -131,7 +132,7 @@ class MovieDetailContent extends StatelessWidget {
                           horizontal: 8.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.grey[800],
+                          color: Color.fromRGBO(116, 196, 199, 1),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
@@ -147,7 +148,7 @@ class MovieDetailContent extends StatelessWidget {
                         children: [
                           const Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: Color.fromRGBO(116, 196, 199, 1),
                             size: 20.0,
                           ),
                           const SizedBox(width: 4.0),
@@ -157,6 +158,7 @@ class MovieDetailContent extends StatelessWidget {
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
+                              color: Color.fromRGBO(100, 100, 100, 1)
                             ),
                           ),
                           const SizedBox(width: 4.0),
@@ -166,6 +168,7 @@ class MovieDetailContent extends StatelessWidget {
                               fontSize: 1.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
+                              color: Color.fromRGBO(100, 100, 100, 1)
                             ),
                           ),
                         ],
@@ -174,37 +177,37 @@ class MovieDetailContent extends StatelessWidget {
                       Text(
                         _showDuration(movie.runtime),
                         style: const TextStyle(
-                          color: Colors.white70,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.2,
+                          color: Color.fromRGBO(100, 100, 100, 1)
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
-                    key: const Key('movieToWatchlist'),
+                    key: const Key('movieToFavorite'),
                     onPressed: () async {
-                      if (!isAddedToWatchlist) {
+                      if (!isAddedToFavorite) {
                         await Provider.of<MovieDetailNotifier>(context,
                                 listen: false)
-                            .addToWatchlist(movie);
+                            .addToFavorite(movie);
                       } else {
                         await Provider.of<MovieDetailNotifier>(context,
                                 listen: false)
-                            .removeFromWatchlist(movie);
+                            .removeFromFavorite(movie);
                       }
 
                       final message = Provider.of<MovieDetailNotifier>(context,
                               listen: false)
-                          .watchlistMessage;
+                          .favoriteMessage;
 
                       if (message ==
-                              MovieDetailNotifier.watchlistAddSuccessMessage ||
+                              MovieDetailNotifier.favoriteAddSuccessMessage ||
                           message ==
                               MovieDetailNotifier
-                                  .watchlistRemoveSuccessMessage) {
+                                  .favoriteRemoveSuccessMessage) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(SnackBar(content: Text(message)));
                       } else {
@@ -221,25 +224,28 @@ class MovieDetailContent extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        isAddedToWatchlist
-                            ? const Icon(Icons.check, color: Colors.white)
-                            : const Icon(Icons.add, color: Colors.black),
+                        isAddedToFavorite
+                            ? const Icon(Icons.favorite, color: Colors.white )
+                            : const Icon(Icons.favorite_outline, color: Color.fromRGBO(100, 100, 100, 1),),
                         const SizedBox(width: 16.0),
                         Text(
-                          isAddedToWatchlist
-                              ? 'Added to watchlist'
-                              : 'Add to watchlist',
+                          isAddedToFavorite
+                              ? 'Added to favorite'
+                              : 'Add to favorite',
                           style: TextStyle(
-                            color: isAddedToWatchlist
+                            color: isAddedToFavorite
                                 ? Colors.white
-                                : Colors.black,
+                                : Color.fromRGBO(100, 100, 100, 1),
                           ),
                         ),
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
+                      elevation: 5,
                       primary:
-                          isAddedToWatchlist ? Colors.grey[850] : Colors.white,
+                          isAddedToFavorite ?
+                          Color.fromRGBO(116, 196, 199, 1) :
+                          Colors.white,
                       minimumSize: Size(
                         MediaQuery.of(context).size.width,
                         42.0,
@@ -253,13 +259,14 @@ class MovieDetailContent extends StatelessWidget {
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
                       letterSpacing: 1.2,
+                      color: Color.fromRGBO(100, 100, 100, 1),
                     ),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
                     'Genres: ${_showGenres(movie.genres)}',
                     style: const TextStyle(
-                      color: Colors.white70,
+                      color: Color.fromRGBO(100, 100, 100, 1),
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 1.2,
@@ -282,6 +289,7 @@ class MovieDetailContent extends StatelessWidget {
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 1.2,
+                  color: Color.fromRGBO(100, 100, 100, 1),
                 ),
               ),
             ),
@@ -334,12 +342,6 @@ class MovieDetailContent extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10.0),
-                            topRight: Radius.circular(10.0),
-                          ),
-                        ),
                         context: context,
                         builder: (context) {
                           return MinimalDetail(

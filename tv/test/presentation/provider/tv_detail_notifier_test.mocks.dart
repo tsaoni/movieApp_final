@@ -12,9 +12,9 @@ import 'package:tv/domain/entities/tv_detail.dart' as _i7;
 import 'package:tv/domain/repositories/tv_repository.dart' as _i2;
 import 'package:tv/domain/usecases/get_tv_detail.dart' as _i4;
 import 'package:tv/domain/usecases/get_tv_recommendations.dart' as _i8;
-import 'package:tv/domain/usecases/get_tv_watchlist_status.dart' as _i10;
-import 'package:tv/domain/usecases/remove_watchlist_tv.dart' as _i12;
-import 'package:tv/domain/usecases/save_watchlist_tv.dart' as _i11;
+import 'package:tv/domain/usecases/get_tv_favorite_status.dart' as _i10;
+import 'package:tv/domain/usecases/remove_favorite_tv.dart' as _i12;
+import 'package:tv/domain/usecases/save_favorite_tv.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -71,12 +71,12 @@ class MockGetTvRecommendations extends _i1.Mock
           as _i5.Future<_i3.Either<_i6.Failure, List<_i9.Tv>>>);
 }
 
-/// A class which mocks [GetTvWatchlistStatus].
+/// A class which mocks [GetTvFavoriteStatus].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTvWatchlistStatus extends _i1.Mock
-    implements _i10.GetTvWatchlistStatus {
-  MockGetTvWatchlistStatus() {
+class MockGetTvFavoriteStatus extends _i1.Mock
+    implements _i10.GetTvFavoriteStatus {
+  MockGetTvFavoriteStatus() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -90,11 +90,11 @@ class MockGetTvWatchlistStatus extends _i1.Mock
           returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
 }
 
-/// A class which mocks [SaveWatchlistTv].
+/// A class which mocks [SaveFavoriteTv].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSaveWatchlistTv extends _i1.Mock implements _i11.SaveWatchlistTv {
-  MockSaveWatchlistTv() {
+class MockSaveFavoriteTv extends _i1.Mock implements _i11.SaveFavoriteTv {
+  MockSaveFavoriteTv() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -110,11 +110,11 @@ class MockSaveWatchlistTv extends _i1.Mock implements _i11.SaveWatchlistTv {
           as _i5.Future<_i3.Either<_i6.Failure, String>>);
 }
 
-/// A class which mocks [RemoveWatchlistTv].
+/// A class which mocks [RemoveFavoriteTv].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRemoveWatchlistTv extends _i1.Mock implements _i12.RemoveWatchlistTv {
-  MockRemoveWatchlistTv() {
+class MockRemoveFavoriteTv extends _i1.Mock implements _i12.RemoveFavoriteTv {
+  MockRemoveFavoriteTv() {
     _i1.throwOnMissingStub(this);
   }
 

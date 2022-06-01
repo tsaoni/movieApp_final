@@ -24,7 +24,7 @@ class Tv extends Equatable {
     required this.voteCount,
   });
 
-  Tv.watchList({
+  Tv.favorite({
     required this.firstAirDate,
     required this.id,
     required this.name,

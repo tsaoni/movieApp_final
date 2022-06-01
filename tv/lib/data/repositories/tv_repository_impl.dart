@@ -123,10 +123,10 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(TvDetail tv) async {
+  Future<Either<Failure, String>> saveFavorite(TvDetail tv) async {
     try {
       final result =
-          await localDataSource.insertWatchlist(TvTable.fromEntity(tv));
+          await localDataSource.insertFavorite(TvTable.fromEntity(tv));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -136,10 +136,10 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlist(TvDetail tv) async {
+  Future<Either<Failure, String>> removeFavorite(TvDetail tv) async {
     try {
       final result =
-          await localDataSource.removeWatchlist(TvTable.fromEntity(tv));
+          await localDataSource.removeFavorite(TvTable.fromEntity(tv));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -149,14 +149,14 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<bool> isAddedToWatchlist(int id) async {
+  Future<bool> isAddedToFavorite(int id) async {
     final result = await localDataSource.getTvById(id);
     return result != null;
   }
 
   @override
-  Future<Either<Failure, List<Tv>>> getWatchlistTvs() async {
-    final result = await localDataSource.getWatchlistTvs();
+  Future<Either<Failure, List<Tv>>> getFavoriteTvs() async {
+    final result = await localDataSource.getFavoriteTvs();
     return Right(result.map((data) => data.toEntity()).toList());
   }
 }

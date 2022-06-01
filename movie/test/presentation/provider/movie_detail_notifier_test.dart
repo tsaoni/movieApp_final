@@ -7,9 +7,9 @@ import 'package:mockito/mockito.dart';
 import 'package:movie/domain/entities/movie.dart';
 import 'package:movie/domain/usecases/get_movie_detail.dart';
 import 'package:movie/domain/usecases/get_movie_recommendations.dart';
-import 'package:movie/domain/usecases/get_movie_watchlist_status.dart';
-import 'package:movie/domain/usecases/remove_watchlist_movie.dart';
-import 'package:movie/domain/usecases/save_watchlist_movie.dart';
+import 'package:movie/domain/usecases/get_movie_favorite_status.dart';
+import 'package:movie/domain/usecases/remove_favorite_movie.dart';
+import 'package:movie/domain/usecases/save_favorite_movie.dart';
 import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 
 import '../../helpers/dummy_objects.dart';
@@ -18,32 +18,32 @@ import 'movie_detail_notifier_test.mocks.dart';
 @GenerateMocks([
   GetMovieDetail,
   GetMovieRecommendations,
-  GetMovieWatchlistStatus,
-  SaveWatchlistMovie,
-  RemoveWatchlistMovie,
+  GetMovieFavoriteStatus,
+  SaveFavoriteMovie,
+  RemoveFavoriteMovie,
 ])
 void main() {
   late int listenerCallCount;
   late MockGetMovieDetail mockGetMovieDetail;
   late MockGetMovieRecommendations mockGetMovieRecommendations;
-  late MockGetMovieWatchlistStatus mockGetWatchlistStatus;
-  late MockSaveWatchlistMovie mockSaveWatchlist;
-  late MockRemoveWatchlistMovie mockRemoveWatchlist;
+  late MockGetMovieFavoriteStatus mockGetFavoriteStatus;
+  late MockSaveFavoriteMovie mockSaveFavorite;
+  late MockRemoveFavoriteMovie mockRemoveFavorite;
   late MovieDetailNotifier provider;
 
   setUp(() {
     listenerCallCount = 0;
     mockGetMovieDetail = MockGetMovieDetail();
     mockGetMovieRecommendations = MockGetMovieRecommendations();
-    mockGetWatchlistStatus = MockGetMovieWatchlistStatus();
-    mockSaveWatchlist = MockSaveWatchlistMovie();
-    mockRemoveWatchlist = MockRemoveWatchlistMovie();
+    mockGetFavoriteStatus = MockGetMovieFavoriteStatus();
+    mockSaveFavorite = MockSaveFavoriteMovie();
+    mockRemoveFavorite = MockRemoveFavoriteMovie();
     provider = MovieDetailNotifier(
       getMovieDetail: mockGetMovieDetail,
       getMovieRecommendations: mockGetMovieRecommendations,
-      getWatchListStatus: mockGetWatchlistStatus,
-      saveWatchlist: mockSaveWatchlist,
-      removeWatchlist: mockRemoveWatchlist,
+      getFavoriteStatus: mockGetFavoriteStatus,
+      saveFavorite: mockSaveFavorite,
+      removeFavorite: mockRemoveFavorite,
     )..addListener(() {
         listenerCallCount++;
       });
@@ -201,89 +201,89 @@ void main() {
     );
   });
 
-  group('movie watchlist', () {
+  group('movie favorite', () {
     test(
-      'should get the watchlist status',
+      'should get the favorite status',
       () async {
         // arrange
-        when(mockGetWatchlistStatus.execute(1)).thenAnswer((_) async => true);
+        when(mockGetFavoriteStatus.execute(1)).thenAnswer((_) async => true);
 
         // act
-        await provider.loadWatchlistStatus(1);
+        await provider.loadFavoriteStatus(1);
 
         // assert
-        expect(provider.isAddedToWatchlist, equals(true));
+        expect(provider.isAddedToFavorite, equals(true));
       },
     );
 
     test(
-      'should execute save watchlist when function called',
+      'should execute save favorite when function called',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testMovieDetail))
+        when(mockSaveFavorite.execute(testMovieDetail))
             .thenAnswer((_) async => const Right('Success'));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetFavoriteStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addToWatchlist(testMovieDetail);
+        await provider.addToFavorite(testMovieDetail);
 
         // assert
-        verify(mockSaveWatchlist.execute(testMovieDetail));
+        verify(mockSaveFavorite.execute(testMovieDetail));
       },
     );
 
     test(
-      'should execute remove watchlist when function called',
+      'should execute remove favorite when function called',
       () async {
         // arrange
-        when(mockRemoveWatchlist.execute(testMovieDetail))
+        when(mockRemoveFavorite.execute(testMovieDetail))
             .thenAnswer((_) async => const Right('Removed'));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetFavoriteStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => false);
 
         // act
-        await provider.removeFromWatchlist(testMovieDetail);
+        await provider.removeFromFavorite(testMovieDetail);
 
         // assert
-        verify(mockRemoveWatchlist.execute(testMovieDetail));
+        verify(mockRemoveFavorite.execute(testMovieDetail));
       },
     );
 
     test(
-      'should change watchlist status when adding watchlist success',
+      'should change favorite status when adding favorite success',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testMovieDetail))
-            .thenAnswer((_) async => const Right('Added to watchlist'));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockSaveFavorite.execute(testMovieDetail))
+            .thenAnswer((_) async => const Right('Added to favorite'));
+        when(mockGetFavoriteStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addToWatchlist(testMovieDetail);
+        await provider.addToFavorite(testMovieDetail);
 
         // assert
-        verify(mockGetWatchlistStatus.execute(testMovieDetail.id));
-        expect(provider.isAddedToWatchlist, equals(true));
-        expect(provider.watchlistMessage, equals('Added to watchlist'));
+        verify(mockGetFavoriteStatus.execute(testMovieDetail.id));
+        expect(provider.isAddedToFavorite, equals(true));
+        expect(provider.favoriteMessage, equals('Added to favorite'));
         expect(listenerCallCount, equals(1));
       },
     );
 
     test(
-      'should change watchlist message when adding watchlist failed',
+      'should change favorite message when adding favorite failed',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testMovieDetail))
+        when(mockSaveFavorite.execute(testMovieDetail))
             .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
-        when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+        when(mockGetFavoriteStatus.execute(testMovieDetail.id))
             .thenAnswer((_) async => false);
 
         // act
-        await provider.addToWatchlist(testMovieDetail);
+        await provider.addToFavorite(testMovieDetail);
 
         // assert
-        expect(provider.watchlistMessage, equals('Failed'));
+        expect(provider.favoriteMessage, equals('Failed'));
         expect(listenerCallCount, equals(1));
       },
     );

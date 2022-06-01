@@ -29,17 +29,17 @@ void main() {
   }
 
   testWidgets(
-    'watchlist button should display add icon when movie not added to watchlist',
+    'favorite button should display add icon when movie not added to favorite',
     (WidgetTester tester) async {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.loaded);
       when(mockNotifier.recommendations).thenReturn(<Movie>[]);
-      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+      when(mockNotifier.isAddedToFavorite).thenReturn(false);
 
       // act
-      final watchlistButtonIcon = find.byIcon(Icons.add);
+      final favoriteButtonIcon = find.byIcon(Icons.add);
 
       await tester.pumpWidget(
         _makeTestableWidget(const MovieDetailPage(id: 1)),
@@ -48,22 +48,22 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       // assert
-      expect(watchlistButtonIcon, equals(findsOneWidget));
+      expect(favoriteButtonIcon, equals(findsOneWidget));
     },
   );
 
   testWidgets(
-    'watchlist button should dispay check icon when movie is added to wathclist',
+    'favorite button should dispay check icon when movie is added to wathclist',
     (WidgetTester tester) async {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.loaded);
       when(mockNotifier.recommendations).thenReturn(<Movie>[]);
-      when(mockNotifier.isAddedToWatchlist).thenReturn(true);
+      when(mockNotifier.isAddedToFavorite).thenReturn(true);
 
       // act
-      final watchlistButtonIcon = find.byIcon(Icons.check);
+      final favoriteButtonIcon = find.byIcon(Icons.check);
 
       await tester.pumpWidget(
         _makeTestableWidget(const MovieDetailPage(id: 1)),
@@ -72,23 +72,23 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       // assert
-      expect(watchlistButtonIcon, equals(findsOneWidget));
+      expect(favoriteButtonIcon, equals(findsOneWidget));
     },
   );
 
   testWidgets(
-    'watchlist button should display snackbar when added to watchlist',
+    'favorite button should display snackbar when added to favorite',
     (WidgetTester tester) async {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.loaded);
       when(mockNotifier.recommendations).thenReturn(<Movie>[]);
-      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-      when(mockNotifier.watchlistMessage).thenReturn('Added to watchlist');
+      when(mockNotifier.isAddedToFavorite).thenReturn(false);
+      when(mockNotifier.favoriteMessage).thenReturn('Added to favorite');
 
       // act
-      final watchlistButton = find.byType(ElevatedButton);
+      final favoriteButton = find.byType(ElevatedButton);
 
       await tester.pumpWidget(
         _makeTestableWidget(const MovieDetailPage(id: 1)),
@@ -100,28 +100,28 @@ void main() {
 
       // act
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      await tester.tap(watchlistButton);
+      await tester.tap(favoriteButton);
       await tester.pump();
 
       // assert
       expect(find.byType(SnackBar), equals(findsOneWidget));
-      expect(find.text('Added to watchlist'), equals(findsOneWidget));
+      expect(find.text('Added to favorite'), equals(findsOneWidget));
     },
   );
 
   testWidgets(
-    'watchlist button should display alert dialog when add to watchlist failed',
+    'favorite button should display alert dialog when add to favorite failed',
     (WidgetTester tester) async {
       // arrange
       when(mockNotifier.movieState).thenReturn(RequestState.loaded);
       when(mockNotifier.movie).thenReturn(testMovieDetail);
       when(mockNotifier.recommendationsState).thenReturn(RequestState.loaded);
       when(mockNotifier.recommendations).thenReturn(<Movie>[]);
-      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-      when(mockNotifier.watchlistMessage).thenReturn('Failed');
+      when(mockNotifier.isAddedToFavorite).thenReturn(false);
+      when(mockNotifier.favoriteMessage).thenReturn('Failed');
 
       // act
-      final watchlistButton = find.byType(ElevatedButton);
+      final favoriteButton = find.byType(ElevatedButton);
 
       await tester.pumpWidget(
         _makeTestableWidget(const MovieDetailPage(id: 1)),
@@ -133,7 +133,7 @@ void main() {
 
       // act
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      await tester.tap(watchlistButton);
+      await tester.tap(favoriteButton);
       await tester.pump();
 
       // assert

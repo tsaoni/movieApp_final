@@ -15,8 +15,8 @@ abstract class TvRepository {
       int id, int seasonNumber);
   Future<Either<Failure, List<Tv>>> searchTvs(String query);
   Future<Either<Failure, MediaImage>> getTvImages(int id);
-  Future<Either<Failure, String>> saveWatchlist(TvDetail tv);
-  Future<Either<Failure, String>> removeWatchlist(TvDetail tv);
-  Future<bool> isAddedToWatchlist(int id);
-  Future<Either<Failure, List<Tv>>> getWatchlistTvs();
+  Future<Either<Failure, String>> saveFavorite(TvDetail tv);
+  Future<Either<Failure, String>> removeFavorite(TvDetail tv);
+  Future<bool> isAddedToFavorite(int id);
+  Future<Either<Failure, List<Tv>>> getFavoriteTvs();
 }

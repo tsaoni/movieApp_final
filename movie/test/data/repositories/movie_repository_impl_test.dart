@@ -488,20 +488,20 @@ void main() {
     );
   });
 
-  group('save watchlist', () {
+  group('save favorite', () {
     test(
       'should return success message when saving successful',
       () async {
         // arrange
-        when(mockLocalDataSource.insertWatchlist(testMovieTable))
-            .thenAnswer((_) async => 'Added to watchlist');
+        when(mockLocalDataSource.insertFavorite(testMovieTable))
+            .thenAnswer((_) async => 'Added to favorite');
 
         // act
-        final result = await repository.saveWatchlist(testMovieDetail);
+        final result = await repository.saveFavorite(testMovieDetail);
 
         // assert
-        verify(mockLocalDataSource.insertWatchlist(testMovieTable));
-        expect(result, equals(const Right('Added to watchlist')));
+        verify(mockLocalDataSource.insertFavorite(testMovieTable));
+        expect(result, equals(const Right('Added to favorite')));
       },
     );
 
@@ -509,36 +509,36 @@ void main() {
       'should return database failure when saving unsuccessful',
       () async {
         // arrange
-        when(mockLocalDataSource.insertWatchlist(testMovieTable))
-            .thenThrow(DatabaseException('Failed to add watchlist'));
+        when(mockLocalDataSource.insertFavorite(testMovieTable))
+            .thenThrow(DatabaseException('Failed to add favorite'));
 
         // act
-        final result = await repository.saveWatchlist(testMovieDetail);
+        final result = await repository.saveFavorite(testMovieDetail);
 
         // assert
-        verify(mockLocalDataSource.insertWatchlist(testMovieTable));
+        verify(mockLocalDataSource.insertFavorite(testMovieTable));
         expect(
           result,
-          equals(const Left(DatabaseFailure('Failed to add watchlist'))),
+          equals(const Left(DatabaseFailure('Failed to add favorite'))),
         );
       },
     );
   });
 
-  group('remove watchlist', () {
+  group('remove favorite', () {
     test(
       'should return success message when remove successful',
       () async {
         // arrange
-        when(mockLocalDataSource.removeWatchlist(testMovieTable))
-            .thenAnswer((_) async => 'Removed from watchlist');
+        when(mockLocalDataSource.removeFavorite(testMovieTable))
+            .thenAnswer((_) async => 'Removed from favorite');
 
         // act
-        final result = await repository.removeWatchlist(testMovieDetail);
+        final result = await repository.removeFavorite(testMovieDetail);
 
         // assert
-        verify(mockLocalDataSource.removeWatchlist(testMovieTable));
-        expect(result, equals(const Right('Removed from watchlist')));
+        verify(mockLocalDataSource.removeFavorite(testMovieTable));
+        expect(result, equals(const Right('Removed from favorite')));
       },
     );
 
@@ -546,27 +546,27 @@ void main() {
       'should return database failure when remove unsuccessful',
       () async {
         // arrange
-        when(mockLocalDataSource.removeWatchlist(testMovieTable))
-            .thenThrow(DatabaseException('Failed to remove watchlist'));
+        when(mockLocalDataSource.removeFavorite(testMovieTable))
+            .thenThrow(DatabaseException('Failed to remove favorite'));
 
         // act
-        final result = await repository.removeWatchlist(testMovieDetail);
+        final result = await repository.removeFavorite(testMovieDetail);
 
         // assert
-        verify(mockLocalDataSource.removeWatchlist(testMovieTable));
+        verify(mockLocalDataSource.removeFavorite(testMovieTable));
         expect(
           result,
-          equals(const Left(DatabaseFailure('Failed to remove watchlist'))),
+          equals(const Left(DatabaseFailure('Failed to remove favorite'))),
         );
       },
     );
   });
 
-  group('get watchlist status', () {
+  group('get favorite status', () {
     const tId = 1;
 
     test(
-      'should return watchlist status whether data is found',
+      'should return favorite status whether data is found',
       () async {
         // arrange
 
@@ -574,7 +574,7 @@ void main() {
             .thenAnswer((_) async => null);
 
         // act
-        final result = await repository.isAddedToWatchlist(tId);
+        final result = await repository.isAddedToFavorite(tId);
 
         // assert
         verify(mockLocalDataSource.getMovieById(tId));
@@ -583,21 +583,21 @@ void main() {
     );
   });
 
-  group('get watchlist movies', () {
+  group('get favorite movies', () {
     test(
       'should return list of movies from database',
       () async {
         // arrange
-        when(mockLocalDataSource.getWatchlistMovies())
+        when(mockLocalDataSource.getFavoriteMovies())
             .thenAnswer((_) async => [testMovieTable]);
 
         // act
-        final result = await repository.getWatchlistMovies();
+        final result = await repository.getFavoriteMovies();
 
         // assert
-        verify(mockLocalDataSource.getWatchlistMovies());
+        verify(mockLocalDataSource.getFavoriteMovies());
         final resultList = result.getOrElse(() => []);
-        expect(resultList, equals([testWatchlistMovie]));
+        expect(resultList, equals([testFavoriteMovie]));
       },
     );
   });

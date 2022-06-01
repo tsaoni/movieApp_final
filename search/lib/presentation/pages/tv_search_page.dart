@@ -12,6 +12,7 @@ class TvSearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:Color.fromRGBO(116, 196, 199, 1),
         title: const Text('Search Tv'),
       ),
       body: Padding(
@@ -26,16 +27,20 @@ class TvSearchPage extends StatelessWidget {
               },
               decoration: InputDecoration(
                 hintText: 'Search tv shows',
+                hintStyle: TextStyle(
+                    color: Color.fromRGBO(100, 100, 100, 1)
+                ),
                 prefixIcon: const Icon(
                   Icons.search,
-                  color: Colors.white70,
+                  color: Color.fromRGBO(100, 100, 100, 1)
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Color.fromRGBO(100, 100, 100, 1))
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Color.fromRGBO(116, 196, 199, 1)),
                 ),
               ),
               textInputAction: TextInputAction.search,

@@ -24,7 +24,10 @@ class SubHeading extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(text, style: kHeading6),
+          Text(
+            text,
+            style: kHeading6.copyWith(color: Colors.grey,),
+          ),
           InkWell(
             key: Key(valueKey!),
             onTap: onSeeMoreTapped,
@@ -32,8 +35,11 @@ class SubHeading extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: const [
-                  Text('See More'),
-                  Icon(Icons.arrow_forward_ios, size: 16.0)
+                  Text(
+                    'See More',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Icon(Icons.arrow_forward_ios, size: 16.0, color: Colors.grey,)
                 ],
               ),
             ),

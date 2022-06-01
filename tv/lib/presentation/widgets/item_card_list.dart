@@ -25,17 +25,18 @@ class ItemCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.only(bottom: 16.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[850],
-          borderRadius: BorderRadius.circular(10.0),
+        decoration: const BoxDecoration(
+            border: Border(
+                bottom: BorderSide(
+                  color: Colors.grey,
+                  width: 0.3,
+                )
+            )
         ),
         child: Row(
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
                 child: CachedNetworkImage(
                   imageUrl: Urls.imageUrl(tv.posterPath!),
                   placeholder: (context, url) => const Center(
@@ -54,7 +55,9 @@ class ItemCard extends StatelessWidget {
                   Text(
                     tv.name ?? '-',
                     overflow: TextOverflow.ellipsis,
-                    style: kHeading6,
+                    style: kHeading6.copyWith(
+                      color: Colors.grey,
+                    ),
                     maxLines: 1,
                   ),
                   const SizedBox(height: 4.0),
@@ -66,20 +69,24 @@ class ItemCard extends StatelessWidget {
                           vertical: 2.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(tv.firstAirDate!.split('-')[0]),
+                        child: Text(tv.firstAirDate!.split('-')[0],
+                          style: kBodyText.copyWith(
+                            color: Colors.grey,
+                          ),),
                       ),
                       const SizedBox(width: 16.0),
                       const Icon(
                         Icons.star,
-                        color: Colors.amber,
+                        color: Color.fromRGBO(116, 196, 199, 1),
                         size: 18.0,
                       ),
                       const SizedBox(width: 4.0),
                       Text(
                         (tv.voteAverage! / 2).toStringAsFixed(1),
+                        style: kBodyText.copyWith(
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
@@ -88,6 +95,9 @@ class ItemCard extends StatelessWidget {
                     tv.overview ?? '-',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
+                    style: kBodyText.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
                 ],
               ),

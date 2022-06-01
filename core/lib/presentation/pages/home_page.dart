@@ -7,7 +7,7 @@ import '../../core.dart';
 import '../../utils/routes.dart';
 import '../provider/home_notifier.dart';
 
-import 'watchlist_page.dart';
+import 'favorite_page.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -95,8 +95,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         key: const Key('closeDrawerButton'),
                         onTap: toggle,
                         child: const CircleAvatar(
-                          child: Icon(Icons.close, color: kRichBlack),
-                          backgroundColor: Colors.white,
+                          child: Icon(Icons.close, color: Colors.white),
+                          backgroundColor: Colors.grey,
                         ),
                       ),
                       const SizedBox(height: 128.0),
@@ -120,12 +120,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   'Abu Aziz',
                                   style: kHeading6.copyWith(
                                     fontSize: 16.0,
+                                    color: Colors.grey,
                                   ),
                                 ),
                                 Text(
                                   'abuaziz@mail.co',
                                   style: kBodyText.copyWith(
-                                    color: Colors.white70,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ],
@@ -149,10 +150,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               title: const Text('Movies'),
                               selected: data.state == GeneralContentType.movie,
                               style: ListTileStyle.drawer,
-                              iconColor: Colors.white70,
-                              textColor: Colors.white70,
+                              iconColor: Colors.grey,
+                              textColor: Colors.grey,
                               selectedColor: Colors.white,
-                              selectedTileColor: Colors.redAccent,
+                              selectedTileColor: Color.fromRGBO(116, 196, 199, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -169,10 +170,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               title: const Text('Tv Show'),
                               selected: data.state == GeneralContentType.tv,
                               style: ListTileStyle.drawer,
-                              iconColor: Colors.white70,
-                              textColor: Colors.white70,
+                              iconColor: Colors.grey,
+                              textColor: Colors.grey,
                               selectedColor: Colors.white,
-                              selectedTileColor: Colors.redAccent,
+                              selectedTileColor: Color.fromRGBO(116, 196, 199, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -181,14 +182,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         );
                       }),
                       ListTile(
-                        key: const Key('watchlistListTile'),
+                        key: const Key('favoritetListTile'),
                         onTap: () {
-                          Navigator.pushNamed(context, WatchlistPage.routeName);
+                          Navigator.pushNamed(context, FavoritePage.routeName);
                         },
                         leading: const Icon(Icons.save_alt),
-                        title: const Text('Watchlist'),
-                        iconColor: Colors.white70,
-                        textColor: Colors.white70,
+                        title: const Text('Favorite'),
+                        iconColor: Colors.grey,
+                        textColor: Colors.grey,
                       ),
                       ListTile(
                         key: const Key('aboutListTile'),
@@ -197,8 +198,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         },
                         leading: const Icon(Icons.info_outline),
                         title: const Text('About'),
-                        iconColor: Colors.white70,
-                        textColor: Colors.white70,
+                        iconColor: Colors.grey,
+                        textColor: Colors.grey,
                       ),
                     ],
                   ),

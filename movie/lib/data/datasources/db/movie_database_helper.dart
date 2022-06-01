@@ -20,7 +20,7 @@ class MovieDatabaseHelper {
     return _database;
   }
 
-  static const String _movieWatchlistTable = 'movieWatchlistTable';
+  static const String _movieFavoriteTable = 'movieFavoriteTable';
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
@@ -32,7 +32,7 @@ class MovieDatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE  $_movieWatchlistTable (
+      CREATE TABLE  $_movieFavoriteTable (
         releaseDate TEXT,
         id INTEGER PRIMARY KEY,
         title TEXT,
@@ -43,15 +43,18 @@ class MovieDatabaseHelper {
     ''');
   }
 
-  Future<int> insertMovieWatchlist(MovieTable movie) async {
+  Future<int> insertMovieFavorite(MovieTable movie) async {
+    print("fail_database_helper");
     final db = await database;
-    return await db!.insert(_movieWatchlistTable, movie.toMap());
+    print("fail_database_helper_after_get_database");
+    print(db);
+    return await db!.insert(_movieFavoriteTable, movie.toMap());
   }
 
-  Future<int> removeMovieWatchlist(MovieTable movie) async {
+  Future<int> removeMovieFavorite(MovieTable movie) async {
     final db = await database;
     return await db!.delete(
-      _movieWatchlistTable,
+      _movieFavoriteTable,
       where: 'id = ?',
       whereArgs: [movie.id],
     );
@@ -60,7 +63,7 @@ class MovieDatabaseHelper {
   Future<Map<String, dynamic>?> getMovieById(int id) async {
     final db = await database;
     final results = await db!.query(
-      _movieWatchlistTable,
+      _movieFavoriteTable,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -72,10 +75,10 @@ class MovieDatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getWatchlistMovies() async {
+  Future<List<Map<String, dynamic>>> getFavoriteMovies() async {
     final db = await database;
     final List<Map<String, dynamic>> results =
-        await db!.query(_movieWatchlistTable);
+        await db!.query(_movieFavoriteTable);
 
     return results;
   }

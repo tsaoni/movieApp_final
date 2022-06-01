@@ -16,7 +16,7 @@ void main() {
     voteAverage: 1.0,
   );
 
-  final tMovieWatchlist = Movie.watchlist(
+  final tMovieFavorite = Movie.favorite(
     releaseDate: '2022-01-01',
     id: 1,
     title: 'Title',
@@ -40,13 +40,13 @@ void main() {
 
   group('to entity', () {
     test(
-      'should be a subclass of movie watchlist entity',
+      'should be a subclass of movie favorite entity',
       () async {
         // act
         final result = tMovieTable.toEntity();
 
         // assert
-        expect(result, equals(tMovieWatchlist));
+        expect(result, equals(tMovieFavorite));
       },
     );
   });

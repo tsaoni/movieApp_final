@@ -6,26 +6,26 @@ import '../../domain/entities/movie.dart';
 import '../../domain/entities/movie_detail.dart';
 import '../../domain/usecases/get_movie_detail.dart';
 import '../../domain/usecases/get_movie_recommendations.dart';
-import '../../domain/usecases/get_movie_watchlist_status.dart';
-import '../../domain/usecases/remove_watchlist_movie.dart';
-import '../../domain/usecases/save_watchlist_movie.dart';
+import '../../domain/usecases/get_movie_favorite_status.dart';
+import '../../domain/usecases/remove_favorite_movie.dart';
+import '../../domain/usecases/save_favorite_movie.dart';
 
 class MovieDetailNotifier extends ChangeNotifier {
-  static const watchlistAddSuccessMessage = 'Added to watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from watchlist';
+  static const favoriteAddSuccessMessage = 'Added to favorite';
+  static const favoriteRemoveSuccessMessage = 'Removed from favorite';
 
   final GetMovieDetail getMovieDetail;
   final GetMovieRecommendations getMovieRecommendations;
-  final GetMovieWatchlistStatus getWatchListStatus;
-  final SaveWatchlistMovie saveWatchlist;
-  final RemoveWatchlistMovie removeWatchlist;
+  final GetMovieFavoriteStatus getFavoriteStatus;
+  final SaveFavoriteMovie saveFavorite;
+  final RemoveFavoriteMovie removeFavorite;
 
   MovieDetailNotifier({
     required this.getMovieDetail,
     required this.getMovieRecommendations,
-    required this.getWatchListStatus,
-    required this.saveWatchlist,
-    required this.removeWatchlist,
+    required this.getFavoriteStatus,
+    required this.saveFavorite,
+    required this.removeFavorite,
   });
 
   late MovieDetail _movie;
@@ -43,11 +43,11 @@ class MovieDetailNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  bool _isAddedToWatchlist = false;
-  bool get isAddedToWatchlist => _isAddedToWatchlist;
+  bool _isAddedToFavorite = false;
+  bool get isAddedToFavorite => _isAddedToFavorite;
 
-  String _watchlistMessage = '';
-  String get watchlistMessage => _watchlistMessage;
+  String _favoriteMessage = '';
+  String get favoriteMessage => _favoriteMessage;
 
   Future<void> fetchMovieDetail(int id) async {
     _movieState = RequestState.loading;
@@ -81,39 +81,39 @@ class MovieDetailNotifier extends ChangeNotifier {
     );
   }
 
-  Future<void> addToWatchlist(MovieDetail movie) async {
-    final result = await saveWatchlist.execute(movie);
+  Future<void> addToFavorite(MovieDetail movie) async {
+    final result = await saveFavorite.execute(movie);
 
     await result.fold(
       (failure) async {
-        _watchlistMessage = failure.message;
+        _favoriteMessage = failure.message;
       },
       (successMessage) async {
-        _watchlistMessage = successMessage;
+        _favoriteMessage = successMessage;
       },
     );
 
-    await loadWatchlistStatus(movie.id);
+    await loadFavoriteStatus(movie.id);
   }
 
-  Future<void> removeFromWatchlist(MovieDetail movie) async {
-    final result = await removeWatchlist.execute(movie);
+  Future<void> removeFromFavorite(MovieDetail movie) async {
+    final result = await removeFavorite.execute(movie);
 
     await result.fold(
       (failure) async {
-        _watchlistMessage = failure.message;
+        _favoriteMessage = failure.message;
       },
       (successMessage) async {
-        _watchlistMessage = successMessage;
+        _favoriteMessage = successMessage;
       },
     );
 
-    await loadWatchlistStatus(movie.id);
+    await loadFavoriteStatus(movie.id);
   }
 
-  Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
-    _isAddedToWatchlist = result;
+  Future<void> loadFavoriteStatus(int id) async {
+    final result = await getFavoriteStatus.execute(id);
+    _isAddedToFavorite = result;
     notifyListeners();
   }
 }
