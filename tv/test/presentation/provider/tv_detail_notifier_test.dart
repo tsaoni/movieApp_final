@@ -7,9 +7,9 @@ import 'package:mockito/mockito.dart';
 import 'package:tv/domain/entities/tv.dart';
 import 'package:tv/domain/usecases/get_tv_detail.dart';
 import 'package:tv/domain/usecases/get_tv_recommendations.dart';
-import 'package:tv/domain/usecases/get_tv_watchlist_status.dart';
-import 'package:tv/domain/usecases/remove_watchlist_tv.dart';
-import 'package:tv/domain/usecases/save_watchlist_tv.dart';
+import 'package:tv/domain/usecases/get_tv_favorite_status.dart';
+import 'package:tv/domain/usecases/remove_favorite_tv.dart';
+import 'package:tv/domain/usecases/save_favorite_tv.dart';
 import 'package:tv/presentation/provider/tv_detail_notifier.dart';
 
 import '../../helpers/dummy_objects.dart';
@@ -18,32 +18,32 @@ import 'tv_detail_notifier_test.mocks.dart';
 @GenerateMocks([
   GetTvDetail,
   GetTvRecommendations,
-  GetTvWatchlistStatus,
-  SaveWatchlistTv,
-  RemoveWatchlistTv,
+  GetTvFavoriteStatus,
+  SaveFavoriteTv,
+  RemoveFavoriteTv,
 ])
 void main() {
   late int listenerCallCount;
   late MockGetTvDetail mockGetTvDetail;
   late MockGetTvRecommendations mockGetTvRecommendations;
-  late MockGetTvWatchlistStatus mockGetWatchListStatus;
-  late MockSaveWatchlistTv mockSaveWatchlist;
-  late MockRemoveWatchlistTv mockRemoveWatchlist;
+  late MockGetTvFavoriteStatus mockGetFavoriteStatus;
+  late MockSaveFavoriteTv mockSaveFavorite;
+  late MockRemoveFavoriteTv mockRemoveFavorite;
   late TvDetailNotifier provider;
 
   setUp(() {
     listenerCallCount = 0;
     mockGetTvDetail = MockGetTvDetail();
     mockGetTvRecommendations = MockGetTvRecommendations();
-    mockGetWatchListStatus = MockGetTvWatchlistStatus();
-    mockSaveWatchlist = MockSaveWatchlistTv();
-    mockRemoveWatchlist = MockRemoveWatchlistTv();
+    mockGetFavoriteStatus = MockGetTvFavoriteStatus();
+    mockSaveFavorite = MockSaveFavoriteTv();
+    mockRemoveFavorite = MockRemoveFavoriteTv();
     provider = TvDetailNotifier(
       getTvDetail: mockGetTvDetail,
       getTvRecommendations: mockGetTvRecommendations,
-      getWatchListStatus: mockGetWatchListStatus,
-      saveWatchlist: mockSaveWatchlist,
-      removeWatchlist: mockRemoveWatchlist,
+      getFavoriteStatus: mockGetFavoriteStatus,
+      saveFavorite: mockSaveFavorite,
+      removeFavorite: mockRemoveFavorite,
     )..addListener(() {
         listenerCallCount++;
       });
@@ -203,89 +203,89 @@ void main() {
     );
   });
 
-  group('tv watchlist', () {
+  group('tv favorite', () {
     test(
-      'should get the watchlist status',
+      'should get the favorite status',
       () async {
         // arrange
-        when(mockGetWatchListStatus.execute(1)).thenAnswer((_) async => true);
+        when(mockGetFavoriteStatus.execute(1)).thenAnswer((_) async => true);
 
         // act
-        await provider.loadWatchlistStatus(1);
+        await provider.loadFavoriteStatus(1);
 
         // assert
-        expect(provider.isAddedToWatchlist, equals(true));
+        expect(provider.isAddedToFavorite, equals(true));
       },
     );
 
     test(
-      'should execute save watchlist when function called',
+      'should execute save favorite when function called',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testTvDetail))
+        when(mockSaveFavorite.execute(testTvDetail))
             .thenAnswer((_) async => const Right('Success'));
-        when(mockGetWatchListStatus.execute(testTvDetail.id))
+        when(mockGetFavoriteStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addToWatchlist(testTvDetail);
+        await provider.addToFavorite(testTvDetail);
 
         // assert
-        verify(mockSaveWatchlist.execute(testTvDetail));
+        verify(mockSaveFavorite.execute(testTvDetail));
       },
     );
 
     test(
-      'should execute remove watchlist when function called',
+      'should execute remove favorite when function called',
       () async {
         // arrange
-        when(mockRemoveWatchlist.execute(testTvDetail))
+        when(mockRemoveFavorite.execute(testTvDetail))
             .thenAnswer((_) async => const Right('Removed'));
-        when(mockGetWatchListStatus.execute(testTvDetail.id))
+        when(mockGetFavoriteStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
-        await provider.removeFromWatchlist(testTvDetail);
+        await provider.removeFromFavorite(testTvDetail);
 
         // assert
-        verify(mockRemoveWatchlist.execute(testTvDetail));
+        verify(mockRemoveFavorite.execute(testTvDetail));
       },
     );
 
     test(
-      'should change watchlist status when adding watchlist success',
+      'should change favorite status when adding favorite success',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testTvDetail))
-            .thenAnswer((_) async => const Right('Added to watchlist'));
-        when(mockGetWatchListStatus.execute(testTvDetail.id))
+        when(mockSaveFavorite.execute(testTvDetail))
+            .thenAnswer((_) async => const Right('Added to favorite'));
+        when(mockGetFavoriteStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addToWatchlist(testTvDetail);
+        await provider.addToFavorite(testTvDetail);
 
         // assert
-        verify(mockGetWatchListStatus.execute(testTvDetail.id));
-        expect(provider.isAddedToWatchlist, equals(true));
-        expect(provider.watchlistMessage, equals('Added to watchlist'));
+        verify(mockGetFavoriteStatus.execute(testTvDetail.id));
+        expect(provider.isAddedToFavorite, equals(true));
+        expect(provider.favoriteMessage, equals('Added to favorite'));
         expect(listenerCallCount, equals(1));
       },
     );
 
     test(
-      'should change watchlist message when adding watchlist failed',
+      'should change favorite message when adding favorite failed',
       () async {
         // arrange
-        when(mockSaveWatchlist.execute(testTvDetail))
+        when(mockSaveFavorite.execute(testTvDetail))
             .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
-        when(mockGetWatchListStatus.execute(testTvDetail.id))
+        when(mockGetFavoriteStatus.execute(testTvDetail.id))
             .thenAnswer((_) async => true);
 
         // act
-        await provider.addToWatchlist(testTvDetail);
+        await provider.addToFavorite(testTvDetail);
 
         // assert
-        expect(provider.watchlistMessage, equals('Failed'));
+        expect(provider.favoriteMessage, equals('Failed'));
         expect(listenerCallCount, equals(1));
       },
     );

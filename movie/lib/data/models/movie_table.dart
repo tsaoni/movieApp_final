@@ -46,7 +46,7 @@ class MovieTable extends Equatable {
         'voteAverage': voteAverage,
       };
 
-  Movie toEntity() => Movie.watchlist(
+  Movie toEntity() => Movie.favorite(
         releaseDate: releaseDate,
         id: id,
         overview: overview,

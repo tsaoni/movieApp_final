@@ -48,7 +48,7 @@ const testTvSeasonEpisode = TvSeasonEpisode(
 
 final testTvSeasonEpisodes = [testTvSeasonEpisode];
 
-final testWatchlistTv = Tv.watchList(
+final testFavoriteTv = Tv.favorite(
   firstAirDate: '2022-01-01',
   id: 1,
   name: 'Name',

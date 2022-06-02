@@ -24,7 +24,7 @@ class Movie extends Equatable {
     required this.voteCount,
   });
 
-  Movie.watchlist({
+  Movie.favorite({
     required this.releaseDate,
     required this.id,
     required this.overview,

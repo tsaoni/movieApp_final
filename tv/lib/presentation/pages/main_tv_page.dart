@@ -69,12 +69,6 @@ class _MainTvPageState extends State<MainTvPage> {
                           key: const Key('openTvMinimalDetail'),
                           onTap: () {
                             showModalBottomSheet(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10.0),
-                                  topRight: Radius.circular(10.0),
-                                ),
-                              ),
                               context: context,
                               builder: (context) {
                                 return MinimalDetail(
@@ -125,7 +119,7 @@ class _MainTvPageState extends State<MainTvPage> {
                                         children: [
                                           const Icon(
                                             Icons.circle,
-                                            color: Colors.redAccent,
+                                            color: Color.fromRGBO(116, 196, 199, 1),
                                             size: 16.0,
                                           ),
                                           const SizedBox(width: 4.0),
@@ -133,6 +127,7 @@ class _MainTvPageState extends State<MainTvPage> {
                                             'On The Air'.toUpperCase(),
                                             style: const TextStyle(
                                               fontSize: 16.0,
+                                              color: Color.fromRGBO(100, 100, 100, 1),
                                             ),
                                           ),
                                         ],

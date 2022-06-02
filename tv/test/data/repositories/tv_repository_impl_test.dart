@@ -553,20 +553,20 @@ void main() {
     );
   });
 
-  group('save watchlist', () {
+  group('save favorite', () {
     test(
       'should return success message when saving is successful',
       () async {
         // arrange
-        when(mockLocalDataSource.insertWatchlist(testTvTable))
-            .thenAnswer((_) async => 'Added to watchlist');
+        when(mockLocalDataSource.insertFavorite(testTvTable))
+            .thenAnswer((_) async => 'Added to favorite');
 
         // act
-        final result = await repository.saveWatchlist(testTvDetail);
+        final result = await repository.saveFavorite(testTvDetail);
 
         // assert
-        verify(mockLocalDataSource.insertWatchlist(testTvTable));
-        expect(result, equals(const Right('Added to watchlist')));
+        verify(mockLocalDataSource.insertFavorite(testTvTable));
+        expect(result, equals(const Right('Added to favorite')));
       },
     );
 
@@ -574,36 +574,36 @@ void main() {
       'should return database failure when saving unsuccessful',
       () async {
         // arrange
-        when(mockLocalDataSource.insertWatchlist(testTvTable))
-            .thenThrow(DatabaseException('Failed to add watchlist'));
+        when(mockLocalDataSource.insertFavorite(testTvTable))
+            .thenThrow(DatabaseException('Failed to add favorite'));
 
         // act
-        final result = await repository.saveWatchlist(testTvDetail);
+        final result = await repository.saveFavorite(testTvDetail);
 
         // assert
-        verify(mockLocalDataSource.insertWatchlist(testTvTable));
+        verify(mockLocalDataSource.insertFavorite(testTvTable));
         expect(
           result,
-          equals(const Left(DatabaseFailure('Failed to add watchlist'))),
+          equals(const Left(DatabaseFailure('Failed to add favorite'))),
         );
       },
     );
   });
 
-  group('remove watchlist', () {
+  group('remove favorite', () {
     test(
       'should return success message when remove successful',
       () async {
         // arrange
-        when(mockLocalDataSource.removeWatchlist(testTvTable))
-            .thenAnswer((_) async => 'Removed from watchlist');
+        when(mockLocalDataSource.removeFavorite(testTvTable))
+            .thenAnswer((_) async => 'Removed from favorite');
 
         // act
-        final result = await repository.removeWatchlist(testTvDetail);
+        final result = await repository.removeFavorite(testTvDetail);
 
         // assert
-        verify(mockLocalDataSource.removeWatchlist(testTvTable));
-        expect(result, equals(const Right('Removed from watchlist')));
+        verify(mockLocalDataSource.removeFavorite(testTvTable));
+        expect(result, equals(const Right('Removed from favorite')));
       },
     );
 
@@ -611,33 +611,33 @@ void main() {
       'should return database failure when remove unsuccessful',
       () async {
         // arrange
-        when(mockLocalDataSource.removeWatchlist(testTvTable))
-            .thenThrow(DatabaseException('Failed to remove watchlist'));
+        when(mockLocalDataSource.removeFavorite(testTvTable))
+            .thenThrow(DatabaseException('Failed to remove favorite'));
 
         // act
-        final result = await repository.removeWatchlist(testTvDetail);
+        final result = await repository.removeFavorite(testTvDetail);
 
         // assert
-        verify(mockLocalDataSource.removeWatchlist(testTvTable));
+        verify(mockLocalDataSource.removeFavorite(testTvTable));
         expect(
           result,
-          equals(const Left(DatabaseFailure('Failed to remove watchlist'))),
+          equals(const Left(DatabaseFailure('Failed to remove favorite'))),
         );
       },
     );
   });
 
-  group('get watchlist status', () {
+  group('get favorite status', () {
     const tId = 1;
 
     test(
-      'should return watchlist status whether data is found',
+      'should return favorite status whether data is found',
       () async {
         // arrange
         when(mockLocalDataSource.getTvById(tId)).thenAnswer((_) async => null);
 
         // act
-        final result = await repository.isAddedToWatchlist(tId);
+        final result = await repository.isAddedToFavorite(tId);
 
         // assert
         verify(mockLocalDataSource.getTvById(tId));
@@ -646,21 +646,21 @@ void main() {
     );
   });
 
-  group('get watchlist tvs', () {
+  group('get favorite tvs', () {
     test(
       'should return list of tvs from database',
       () async {
         // arrange
-        when(mockLocalDataSource.getWatchlistTvs())
+        when(mockLocalDataSource.getFavoriteTvs())
             .thenAnswer((_) async => [testTvTable]);
 
         // act
-        final result = await repository.getWatchlistTvs();
+        final result = await repository.getFavoriteTvs();
 
         // assert
-        verify(mockLocalDataSource.getWatchlistTvs());
+        verify(mockLocalDataSource.getFavoriteTvs());
         final resultList = result.getOrElse(() => []);
-        expect(resultList, equals([testWatchlistTv]));
+        expect(resultList, equals([testFavoriteTv]));
       },
     );
   });

@@ -47,7 +47,7 @@ class TvTable extends Equatable {
         'voteAverage': voteAverage,
       };
 
-  Tv toEntity() => Tv.watchList(
+  Tv toEntity() => Tv.favorite(
         firstAirDate: firstAirDate,
         id: id,
         name: name,

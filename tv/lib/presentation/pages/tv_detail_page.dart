@@ -33,7 +33,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
       Provider.of<TvDetailNotifier>(context, listen: false)
           .fetchTvDetail(widget.id);
       Provider.of<TvDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+          .loadFavoriteStatus(widget.id);
       Provider.of<TvSeasonEpisodesNotifier>(context, listen: false)
           .fetchTvSeasonEpisodes(widget.id, 1);
     });
@@ -52,7 +52,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
               tv: tv,
               seasonNumber: tv.numberOfSeasons,
               recommendations: provider.recommendations,
-              isAddedToWatchlist: provider.isAddedToWatchlist,
+              isAddedToFavorite: provider.isAddedToFavorite,
             );
           } else {
             return Text(provider.message);
@@ -67,13 +67,13 @@ class TvDetailContent extends StatefulWidget {
   final TvDetail tv;
   final int seasonNumber;
   final List<Tv> recommendations;
-  final bool isAddedToWatchlist;
+  final bool isAddedToFavorite;
   const TvDetailContent({
     Key? key,
     required this.tv,
     required this.seasonNumber,
     required this.recommendations,
-    required this.isAddedToWatchlist,
+    required this.isAddedToFavorite,
   }) : super(key: key);
 
   @override
@@ -146,6 +146,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                     style: kHeading5.copyWith(
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.2,
+                      color: Color.fromRGBO(100, 100, 100, 1)
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -157,7 +158,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                           horizontal: 8.0,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.grey[800],
+                          color: Color.fromRGBO(116, 196, 199, 1),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
@@ -173,7 +174,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                         children: [
                           const Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: Color.fromRGBO(116, 196, 199, 1),
                             size: 20.0,
                           ),
                           const SizedBox(width: 4.0),
@@ -183,6 +184,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                               fontSize: 16.0,
                               fontWeight: FontWeight.w500,
                               letterSpacing: 1.2,
+                              color: Color.fromRGBO(100, 100, 100, 1)
                             ),
                           ),
                           const SizedBox(width: 4.0),
@@ -200,7 +202,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                       Text(
                         '${widget.tv.numberOfSeasons} Seasons',
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: Color.fromRGBO(100, 100, 100, 1),
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.2,
@@ -210,7 +212,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                       Text(
                         _showEpisodeDuration(widget.tv.episodeRunTime[0]),
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: Color.fromRGBO(100, 100, 100, 1),
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.2,
@@ -220,26 +222,26 @@ class _TvDetailContentState extends State<TvDetailContent>
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
-                    key: const Key('tvToWatchlist'),
+                    key: const Key('tvToFavorite'),
                     onPressed: () async {
-                      if (!widget.isAddedToWatchlist) {
+                      if (!widget.isAddedToFavorite) {
                         await Provider.of<TvDetailNotifier>(context,
                                 listen: false)
-                            .addToWatchlist(widget.tv);
+                            .addToFavorite(widget.tv);
                       } else {
                         await Provider.of<TvDetailNotifier>(context,
                                 listen: false)
-                            .removeFromWatchlist(widget.tv);
+                            .removeFromFavorite(widget.tv);
                       }
 
                       final message =
                           Provider.of<TvDetailNotifier>(context, listen: false)
-                              .watchlistMessage;
+                              .favoriteMessage;
 
                       if (message ==
-                              TvDetailNotifier.watchlistAddSuccessMessage ||
+                              TvDetailNotifier.favoriteAddSuccessMessage ||
                           message ==
-                              TvDetailNotifier.watchlistRemoveSuccessMessage) {
+                              TvDetailNotifier.favoriteRemoveSuccessMessage) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(SnackBar(content: Text(message)));
                       } else {
@@ -256,25 +258,26 @@ class _TvDetailContentState extends State<TvDetailContent>
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        widget.isAddedToWatchlist
-                            ? const Icon(Icons.check, color: Colors.white)
-                            : const Icon(Icons.add, color: Colors.black),
+                        widget.isAddedToFavorite
+                            ? const Icon(Icons.favorite, color: Colors.white )
+                            : const Icon(Icons.favorite_outline, color: Color.fromRGBO(100, 100, 100, 1),),
                         const SizedBox(width: 16.0),
                         Text(
-                          widget.isAddedToWatchlist
-                              ? 'Added to watchlist'
-                              : 'Add to watchlist',
+                          widget.isAddedToFavorite
+                              ? 'Added to favorite'
+                              : 'Add to favorite',
                           style: TextStyle(
-                            color: widget.isAddedToWatchlist
+                            color: widget.isAddedToFavorite
                                 ? Colors.white
-                                : Colors.black,
+                                : Color.fromRGBO(100, 100, 100, 1),
                           ),
                         ),
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: widget.isAddedToWatchlist
-                          ? Colors.grey[850]
+                      elevation: 5,
+                      primary: widget.isAddedToFavorite
+                          ? Color.fromRGBO(116, 196, 199, 1)
                           : Colors.white,
                       minimumSize: Size(
                         MediaQuery.of(context).size.width,
@@ -289,13 +292,14 @@ class _TvDetailContentState extends State<TvDetailContent>
                       fontSize: 14.0,
                       fontWeight: FontWeight.w400,
                       letterSpacing: 1.2,
+                      color: Color.fromRGBO(100, 100, 100, 1),
                     ),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
                     'Genres: ${_showGenres(widget.tv.genres)}',
                     style: const TextStyle(
-                      color: Colors.white70,
+                      color: Color.fromRGBO(100, 100, 100, 1),
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 1.2,
@@ -316,12 +320,13 @@ class _TvDetailContentState extends State<TvDetailContent>
                 indicator: const BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: Colors.redAccent,
+                      color: Color.fromRGBO(116, 196, 199, 1),
                       style: BorderStyle.solid,
                       width: 4.0,
                     ),
                   ),
                 ),
+                labelColor: Color.fromRGBO(116, 196, 199, 1),
                 tabs: [
                   Tab(text: 'Episodes'.toUpperCase()),
                   Tab(text: 'More like this'.toUpperCase()),
@@ -347,7 +352,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                       duration: const Duration(milliseconds: 500),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[850],
+                          color: Color.fromRGBO(116, 196, 199, 1),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: DropdownButtonHideUnderline(
@@ -358,7 +363,6 @@ class _TvDetailContentState extends State<TvDetailContent>
                                 setState(() {
                                   _currentSeason = value!;
                                 });
-
                                 Provider.of<TvSeasonEpisodesNotifier>(
                                   context,
                                   listen: false,
@@ -527,7 +531,9 @@ class _TvDetailContentState extends State<TvDetailContent>
                   child: Center(
                     child: Text(
                       'Comming Soon!',
-                      style: TextStyle(fontSize: 16.0),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Color.fromRGBO(100, 100, 100, 1)),
                     ),
                   ),
                 )
@@ -577,6 +583,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                             style: const TextStyle(
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w600,
+                                              color: Color.fromRGBO(100, 100, 100, 1)
                                             ),
                                           ),
                                         ),
@@ -586,7 +593,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                                 seasonEpisode.airDate),
                                           ),
                                           style: const TextStyle(
-                                            color: Colors.white70,
+                                            color: Color.fromRGBO(100, 100, 100, 1),
                                             fontSize: 12.0,
                                             letterSpacing: 1.2,
                                           ),
@@ -601,7 +608,7 @@ class _TvDetailContentState extends State<TvDetailContent>
                                 child: Text(
                                   seasonEpisode.overview,
                                   style: const TextStyle(
-                                    color: Colors.white70,
+                                    color: Color.fromRGBO(100, 100, 100, 1),
                                     fontSize: 10.0,
                                     letterSpacing: 1.2,
                                   ),

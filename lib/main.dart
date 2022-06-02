@@ -1,6 +1,6 @@
 import 'package:about/about.dart';
 import 'package:core/presentation/pages/home_page.dart';
-import 'package:core/presentation/pages/watchlist_page.dart';
+import 'package:core/presentation/pages/favorite_page.dart';
 import 'package:core/presentation/provider/home_notifier.dart';
 import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
@@ -16,7 +16,7 @@ import 'package:movie/presentation/provider/movie_images_notifier.dart';
 import 'package:movie/presentation/provider/movie_list_notifier.dart';
 import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:movie/presentation/provider/favorite_movie_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:search/presentation/pages/tv_search_page.dart';
 import 'package:search/search.dart';
@@ -29,7 +29,7 @@ import 'package:tv/presentation/provider/tv_detail_notifier.dart';
 import 'package:tv/presentation/provider/tv_images_notifier.dart';
 import 'package:tv/presentation/provider/tv_list_notifier.dart';
 import 'package:tv/presentation/provider/tv_season_episodes_notifier.dart';
-import 'package:tv/presentation/provider/watchlist_tv_provider.dart';
+import 'package:tv/presentation/provider/favorite_tv_provider.dart';
 
 import 'injection.dart' as di;
 
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieImagesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
+          create: (_) => di.locator<FavoriteMovieNotifier>(),
         ),
 
         /// Tv
@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TvImagesNotifier>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistTvNotifier>(),
+          create: (_) => di.locator<FavoriteTvNotifier>(),
         ),
         BlocProvider(
           create: (_) => di.locator<MovieSearchBloc>(),
@@ -145,8 +145,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const MovieSearchPage());
             case TvSearchPage.routeName:
               return MaterialPageRoute(builder: (_) => const TvSearchPage());
-            case WatchlistPage.routeName:
-              return MaterialPageRoute(builder: (_) => const WatchlistPage());
+            case FavoritePage.routeName:
+              return MaterialPageRoute(builder: (_) => const FavoritePage());
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
             default:

@@ -5,26 +5,26 @@ import '../../domain/entities/tv.dart';
 import '../../domain/entities/tv_detail.dart';
 import '../../domain/usecases/get_tv_detail.dart';
 import '../../domain/usecases/get_tv_recommendations.dart';
-import '../../domain/usecases/get_tv_watchlist_status.dart';
-import '../../domain/usecases/remove_watchlist_tv.dart';
-import '../../domain/usecases/save_watchlist_tv.dart';
+import '../../domain/usecases/get_tv_favorite_status.dart';
+import '../../domain/usecases/remove_favorite_tv.dart';
+import '../../domain/usecases/save_favorite_tv.dart';
 
 class TvDetailNotifier extends ChangeNotifier {
-  static const watchlistAddSuccessMessage = 'Added to watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from watchlist';
+  static const favoriteAddSuccessMessage = 'Added to favorite';
+  static const favoriteRemoveSuccessMessage = 'Removed from favorite';
 
   final GetTvDetail getTvDetail;
   final GetTvRecommendations getTvRecommendations;
-  final GetTvWatchlistStatus getWatchListStatus;
-  final SaveWatchlistTv saveWatchlist;
-  final RemoveWatchlistTv removeWatchlist;
+  final GetTvFavoriteStatus getFavoriteStatus;
+  final SaveFavoriteTv saveFavorite;
+  final RemoveFavoriteTv removeFavorite;
 
   TvDetailNotifier({
     required this.getTvDetail,
     required this.getTvRecommendations,
-    required this.getWatchListStatus,
-    required this.saveWatchlist,
-    required this.removeWatchlist,
+    required this.getFavoriteStatus,
+    required this.saveFavorite,
+    required this.removeFavorite,
   });
 
   late TvDetail _tv;
@@ -42,11 +42,11 @@ class TvDetailNotifier extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  bool _isAddedToWatchlist = false;
-  bool get isAddedToWatchlist => _isAddedToWatchlist;
+  bool _isAddedToFavorite = false;
+  bool get isAddedToFavorite => _isAddedToFavorite;
 
-  String _watchlistMessage = '';
-  String get watchlistMessage => _watchlistMessage;
+  String _favoriteMessage = '';
+  String get favoriteMessage => _favoriteMessage;
 
   Future<void> fetchTvDetail(int id) async {
     _tvState = RequestState.loading;
@@ -81,39 +81,39 @@ class TvDetailNotifier extends ChangeNotifier {
     );
   }
 
-  Future<void> addToWatchlist(TvDetail tv) async {
-    final result = await saveWatchlist.execute(tv);
+  Future<void> addToFavorite(TvDetail tv) async {
+    final result = await saveFavorite.execute(tv);
 
     await result.fold(
       (failure) async {
-        _watchlistMessage = failure.message;
+        _favoriteMessage = failure.message;
       },
       (successMessage) async {
-        _watchlistMessage = successMessage;
+        _favoriteMessage = successMessage;
       },
     );
 
-    await loadWatchlistStatus(tv.id);
+    await loadFavoriteStatus(tv.id);
   }
 
-  Future<void> removeFromWatchlist(TvDetail tv) async {
-    final result = await removeWatchlist.execute(tv);
+  Future<void> removeFromFavorite(TvDetail tv) async {
+    final result = await removeFavorite.execute(tv);
 
     await result.fold(
       (failure) async {
-        _watchlistMessage = failure.message;
+        _favoriteMessage = failure.message;
       },
       (successMessage) async {
-        _watchlistMessage = successMessage;
+        _favoriteMessage = successMessage;
       },
     );
 
-    await loadWatchlistStatus(tv.id);
+    await loadFavoriteStatus(tv.id);
   }
 
-  Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
-    _isAddedToWatchlist = result;
+  Future<void> loadFavoriteStatus(int id) async {
+    final result = await getFavoriteStatus.execute(id);
+    _isAddedToFavorite = result;
     notifyListeners();
   }
 }

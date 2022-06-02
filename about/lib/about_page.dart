@@ -10,6 +10,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:Color.fromRGBO(116, 196, 199, 1),
         title: const Text('About'),
       ),
       body: Stack(
@@ -37,7 +38,7 @@ class AboutPage extends StatelessWidget {
                   color: kRichBlack,
                   child: const Text(
                     'Movie Database (MDB) is a movie and tv series catalog app developed by Abu Aziz sebagai as a project submission for Flutter Developer Expert course on Dicoding Indonesia.',
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(fontSize: 16.0, color: Color.fromRGBO(100, 100, 100, 1)),
                     textAlign: TextAlign.justify,
                   ),
                 ),

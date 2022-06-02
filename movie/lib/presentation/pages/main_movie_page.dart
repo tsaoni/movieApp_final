@@ -72,12 +72,6 @@ class _MainMoviePageState extends State<MainMoviePage> {
                           key: const Key('openMovieMinimalDetail'),
                           onTap: () {
                             showModalBottomSheet(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10.0),
-                                  topRight: Radius.circular(10.0),
-                                ),
-                              ),
                               context: context,
                               builder: (context) {
                                 return MinimalDetail(
@@ -128,8 +122,7 @@ class _MainMoviePageState extends State<MainMoviePage> {
                                         children: [
                                           const Icon(
                                             Icons.circle,
-                                            color: Colors.redAccent,
-                                            size: 16.0,
+                                            color: Color.fromRGBO(116, 196, 199, 1)
                                           ),
                                           const SizedBox(width: 4.0),
                                           Text(

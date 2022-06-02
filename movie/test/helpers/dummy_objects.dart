@@ -32,7 +32,7 @@ const testMovieDetail = MovieDetail(
   voteCount: 1,
 );
 
-final testWatchlistMovie = Movie.watchlist(
+final testFavoriteMovie = Movie.favorite(
   releaseDate: '2022-01-01',
   id: 1,
   overview: 'Overview',

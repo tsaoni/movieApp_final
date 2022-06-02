@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-const Color kRichBlack = Color(0xFF1E1E29);
-const Color kSpaceGrey = Color(0xFF26262F);
-const Color kOxfordBlue = Color(0xFF001D3D);
+//原本是別的顏色，強制改成白色
+const Color kRichBlack = Colors.white;
+const Color kSpaceGrey = Colors.white;
 
 const kColorScheme = ColorScheme(
-  primary: Colors.redAccent,
-  primaryContainer: Colors.redAccent,
+  primary: Color.fromRGBO(116, 196, 199, 1),
+  primaryContainer: Color.fromRGBO(116, 196, 199, 1),
   secondary: kSpaceGrey,
   secondaryContainer: kSpaceGrey,
   surface: kRichBlack,
   background: kRichBlack,
-  error: Colors.redAccent,
+  error: Color.fromRGBO(116, 196, 199, 1),
   onPrimary: kRichBlack,
-  onSecondary: Colors.white,
+  onSecondary: Colors.grey,
   onSurface: Colors.white,
-  onBackground: Colors.white,
-  onError: Colors.white,
+  onBackground: Colors.grey,
+  onError: Colors.grey,
   brightness: Brightness.dark,
 );

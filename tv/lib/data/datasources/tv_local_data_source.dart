@@ -4,10 +4,10 @@ import '../models/tv_table.dart';
 import 'db/tv_database_helper.dart';
 
 abstract class TvLocalDataSource {
-  Future<String> insertWatchlist(TvTable tv);
-  Future<String> removeWatchlist(TvTable tv);
+  Future<String> insertFavorite(TvTable tv);
+  Future<String> removeFavorite(TvTable tv);
   Future<TvTable?> getTvById(int id);
-  Future<List<TvTable>> getWatchlistTvs();
+  Future<List<TvTable>> getFavoriteTvs();
 }
 
 class TvLocalDataSourceImpl implements TvLocalDataSource {
@@ -16,20 +16,20 @@ class TvLocalDataSourceImpl implements TvLocalDataSource {
   TvLocalDataSourceImpl({required this.databaseHelper});
 
   @override
-  Future<String> insertWatchlist(TvTable tv) async {
+  Future<String> insertFavorite(TvTable tv) async {
     try {
-      await databaseHelper.insertTvWatchlist(tv);
-      return 'Added to watchlist';
+      await databaseHelper.insertTvFavorite(tv);
+      return 'Added to favorite';
     } catch (e) {
       throw DatabaseException(e.toString());
     }
   }
 
   @override
-  Future<String> removeWatchlist(TvTable tv) async {
+  Future<String> removeFavorite(TvTable tv) async {
     try {
-      await databaseHelper.removeTvWatchlist(tv);
-      return 'Removed from watchlist';
+      await databaseHelper.removeTvFavorite(tv);
+      return 'Removed from favorite';
     } catch (e) {
       throw DatabaseException(e.toString());
     }
@@ -46,8 +46,8 @@ class TvLocalDataSourceImpl implements TvLocalDataSource {
   }
 
   @override
-  Future<List<TvTable>> getWatchlistTvs() async {
-    final result = await databaseHelper.getWatchlistTvs();
+  Future<List<TvTable>> getFavoriteTvs() async {
+    final result = await databaseHelper.getFavoriteTvs();
     return result.map((data) => TvTable.fromMap(data)).toList();
   }
 }

@@ -19,7 +19,7 @@ class TvDatabaseHelper {
     return _database;
   }
 
-  static const String _tvWatchlistTable = 'tvWatchlistTable';
+  static const String _tvFavoriteTable = 'tvFavoriteTable';
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
@@ -31,7 +31,7 @@ class TvDatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE  $_tvWatchlistTable (
+      CREATE TABLE  $_tvFavoriteTable (
         firstAirDate TEXT,
         id INTEGER PRIMARY KEY,
         name TEXT,
@@ -42,15 +42,15 @@ class TvDatabaseHelper {
     ''');
   }
 
-  Future<int> insertTvWatchlist(TvTable tv) async {
+  Future<int> insertTvFavorite(TvTable tv) async {
     final db = await database;
-    return await db!.insert(_tvWatchlistTable, tv.toMap());
+    return await db!.insert(_tvFavoriteTable, tv.toMap());
   }
 
-  Future<int> removeTvWatchlist(TvTable tv) async {
+  Future<int> removeTvFavorite(TvTable tv) async {
     final db = await database;
     return await db!.delete(
-      _tvWatchlistTable,
+      _tvFavoriteTable,
       where: 'id = ?',
       whereArgs: [tv.id],
     );
@@ -59,7 +59,7 @@ class TvDatabaseHelper {
   Future<Map<String, dynamic>?> getTvById(int id) async {
     final db = await database;
     final results = await db!.query(
-      _tvWatchlistTable,
+      _tvFavoriteTable,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -71,10 +71,10 @@ class TvDatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getWatchlistTvs() async {
+  Future<List<Map<String, dynamic>>> getFavoriteTvs() async {
     final db = await database;
     final List<Map<String, dynamic>> results =
-        await db!.query(_tvWatchlistTable);
+        await db!.query(_tvFavoriteTable);
 
     return results;
   }

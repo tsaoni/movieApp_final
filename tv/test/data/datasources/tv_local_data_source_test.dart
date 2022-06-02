@@ -15,19 +15,19 @@ void main() {
     dataSource = TvLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
   });
 
-  group('save watchlist', () {
+  group('save favorite', () {
     test(
       'should return success message when data has been inserted to database',
       () async {
         // arrange
-        when(mockDatabaseHelper.insertTvWatchlist(testTvTable))
+        when(mockDatabaseHelper.insertTvFavorite(testTvTable))
             .thenAnswer((_) async => 1);
 
         // act
-        final result = await dataSource.insertWatchlist(testTvTable);
+        final result = await dataSource.insertFavorite(testTvTable);
 
         // assert
-        expect(result, equals('Added to watchlist'));
+        expect(result, equals('Added to favorite'));
       },
     );
 
@@ -35,11 +35,11 @@ void main() {
       'should throw database exception when insert to database is failed',
       () async {
         // arrange
-        when(mockDatabaseHelper.insertTvWatchlist(testTvTable))
+        when(mockDatabaseHelper.insertTvFavorite(testTvTable))
             .thenThrow(Exception());
 
         // act
-        final call = dataSource.insertWatchlist(testTvTable);
+        final call = dataSource.insertFavorite(testTvTable);
 
         // assert
         expect(() => call, throwsA(isA<DatabaseException>()));
@@ -47,19 +47,19 @@ void main() {
     );
   });
 
-  group('remove watchlist', () {
+  group('remove favorite', () {
     test(
       'should return success message when data has been removed from database',
       () async {
         // arrange
-        when(mockDatabaseHelper.removeTvWatchlist(testTvTable))
+        when(mockDatabaseHelper.removeTvFavorite(testTvTable))
             .thenAnswer((_) async => 1);
 
         // act
-        final result = await dataSource.removeWatchlist(testTvTable);
+        final result = await dataSource.removeFavorite(testTvTable);
 
         // assert
-        expect(result, equals('Removed from watchlist'));
+        expect(result, equals('Removed from favorite'));
       },
     );
 
@@ -67,11 +67,11 @@ void main() {
       'should throw database exception when remove from database is failed',
       () async {
         // arrange
-        when(mockDatabaseHelper.removeTvWatchlist(testTvTable))
+        when(mockDatabaseHelper.removeTvFavorite(testTvTable))
             .thenThrow(Exception());
 
         // act
-        final call = dataSource.removeWatchlist(testTvTable);
+        final call = dataSource.removeFavorite(testTvTable);
 
         // assert
         expect(() => call, throwsA(isA<DatabaseException>()));
@@ -79,16 +79,16 @@ void main() {
     );
   });
 
-  group('get watchlist tvs', () {
+  group('get favorite tvs', () {
     test(
       'should return list of tv table from database',
       () async {
         // arrange
-        when(mockDatabaseHelper.getWatchlistTvs())
+        when(mockDatabaseHelper.getFavoriteTvs())
             .thenAnswer((_) async => [testTvMap]);
 
         // act
-        final result = await dataSource.getWatchlistTvs();
+        final result = await dataSource.getFavoriteTvs();
 
         // assert
         expect(result, equals([testTvTable]));
