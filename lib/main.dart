@@ -33,6 +33,7 @@ import 'package:tv/presentation/provider/favorite_tv_provider.dart';
 
 import 'injection.dart' as di;
 
+
 void main() {
   di.init();
   runApp(const MyApp());
@@ -148,7 +149,7 @@ class MyApp extends StatelessWidget {
             case FavoritePage.routeName:
               return MaterialPageRoute(builder: (_) => const FavoritePage());
             case AboutPage.routeName:
-              return MaterialPageRoute(builder: (_) => const AboutPage());
+              return MaterialPageRoute(builder: (_) => const AboutMainPage());
             default:
               return MaterialPageRoute(builder: (_) {
                 return const Scaffold(

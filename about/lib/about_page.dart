@@ -1,52 +1,70 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'form.dart';
 
 class AboutPage extends StatelessWidget {
-  static const routeName = '/about';
-
   const AboutPage({Key? key}) : super(key: key);
+  static const routeName = '/about';
+  static const String _title = 'Flutter Code Sample';
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Color.fromRGBO(116, 196, 199, 1),
-        title: const Text('About'),
+        title: const Text('BottomNavigationBar Sample'),
       ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: Container(
-                  color: kRichBlack,
-                  child: const Center(
-                    child: Text(
-                      'MDB',
-                      style: TextStyle(
-                        fontSize: 64.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(32.0),
-                  color: kRichBlack,
-                  child: const Text(
-                    'Movie Database (MDB) is a movie and tv series catalog app developed by Abu Aziz sebagai as a project submission for Flutter Developer Expert course on Dicoding Indonesia.',
-                    style: TextStyle(fontSize: 16.0, color: Color.fromRGBO(100, 100, 100, 1)),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ),
-            ],
+      body: Center(
+        child: <Widget>[
+          const Text(
+            'Index 0: Home',
+            style: optionStyle,
+          ),
+          const MyForm(),
+        ].elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }
 }
+
