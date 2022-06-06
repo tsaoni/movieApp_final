@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'form.dart';
+import 'show_movie.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
@@ -9,10 +11,18 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context , child) {
+        return const MaterialApp(
+          title: _title,
+          home: MyStatefulWidget(),
+        );
+      },
     );
+
   }
 }
 
@@ -42,10 +52,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ),
       body: Center(
         child: <Widget>[
-          const Text(
-            'Index 0: Home',
-            style: optionStyle,
-          ),
+          SelectCard(),
           const FormPage(),
         ].elementAt(_selectedIndex),
       ),

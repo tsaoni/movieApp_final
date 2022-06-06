@@ -1,19 +1,15 @@
-// flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:math';
-// my library
-/*
+import 'Post.dart';
+import 'about.dart';
 
-Set themes = {};
-int card_num = 3;
+
 int subtitle_size = 10;
-Set <int> choosed = {};
-var rng = Random();
 
 class SelectCard extends StatefulWidget {
 
-  SelectCard(Set<String> set, {Key? key}) : super(key: key){
-    themes = set;
+  SelectCard({Key? key}) : super(key: key){
   }
 
   @override
@@ -22,54 +18,18 @@ class SelectCard extends StatefulWidget {
 
 class _SelectCardState extends State<SelectCard> {
 
-  Set <int> _starting_pos = {};
   int _card_num = 0;
-
-  void _count_start(){
-    for(var t in themes){
-      _starting_pos.add(_card_num);
-      _card_num += questions[t]!.length;
-    }
-  }
-
-  Set<String> _get_theme(int idx){
-    if (idx == -1) {
-      return {"選擇一個想問的故事"};
-    }
-
-    if(_card_num > card_num) {
-      bool rechoose = true;
-      while (rechoose) {
-        idx = rng.nextInt(_card_num);
-        rechoose = false;
-        for (int ch in choosed) {
-          if (ch == idx) {
-            rechoose = true;
-            break;
-          }
-        }
-      }
-      choosed.add(idx);
-    }
-
-    for(int i = 0; i < themes.length; i++){
-      if(idx < _starting_pos.elementAt(i)){
-        return {(idx - _starting_pos.elementAt(i-1)).toString(), themes.elementAt(i-1)};
-      }
-    }
-    return {(idx - _starting_pos.last).toString(), themes.last};
-  }
 
   @override
   Widget build(BuildContext context) {
-    _count_start();
+    _card_num = posts.length;
     return Scaffold(
         body: Center(
             child: ListView.separated(
               padding: const EdgeInsets.all(8),
-              itemCount: card_num > _card_num ? _card_num + 1 : card_num + 1,
+              itemCount: _card_num + 1,
               itemBuilder: (BuildContext context, int index) {
-                return myCard(_get_theme(index-1));
+                return myCard({index-1});
               },
               separatorBuilder: (BuildContext context, int index) => const Divider(),
             )
@@ -79,14 +39,11 @@ class _SelectCardState extends State<SelectCard> {
 }
 
 class myCard extends StatelessWidget {
-  String index = "";
-  String theme = "";
-  int isfirst = 0;
 
-  myCard(Set <String> set, {Key? key}) : super(key: key) {
-    index = set.first;
-    theme = set.last;
-    isfirst = set.length;
+  int _index = -1;
+
+  myCard(Set <int> set, {Key? key}) : super(key: key) {
+    _index = set.first;
   }
 
   Object _subtitleInShort(String s){
@@ -100,7 +57,7 @@ class myCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(isfirst == 1) {
+    if(_index == -1) {
       return Center(
         child: Card(
           color: Colors.transparent,
@@ -112,7 +69,7 @@ class myCard extends StatelessWidget {
                   height: 200.h,
                   child:
                   Center(
-                      child: ListTile(title: Text(theme, style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold) ),)
+                      child: ListTile(title: Text('my posts', style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold) ),)
                   )
               )
           ),
@@ -127,12 +84,12 @@ class myCard extends StatelessWidget {
             width: 340.w,
             height: 136.h,
             child: ListTile(
-                title: Text('${questions[theme]![index]?.title}', style: TextStyle(fontSize: 28.sp) ),
-                subtitle: Text('\n$theme: ${_subtitleInShort(questions[theme]![index]!.question)}', style: TextStyle(fontSize: 17.sp) ),
+                title: Text(posts[_index].title, style: TextStyle(fontSize: 28.sp) ),
+                subtitle: Text('\n${_subtitleInShort(posts[_index].content)}', style: TextStyle(fontSize: 17.sp) ),
                 onTap: () =>
                     Navigator.push(
                       context, MaterialPageRoute(
-                      builder: (context) => ShowAnswer({theme, index}),
+                      builder: (context) => PostPage({_index}),
                     ),
                     )
             ),
@@ -143,5 +100,71 @@ class myCard extends StatelessWidget {
   }
 }
 
+int post_id = 0;
 
- */
+class PostPage extends StatefulWidget {
+
+  PostPage(Set<int> set, {Key? key}) : super(key: key){
+    post_id = set.first;
+  }
+
+  @override
+  State<PostPage> createState() => _PostPageState();
+}
+
+class _PostPageState extends State<PostPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+        children: <Widget>[
+          SizedBox(
+            width: 200.w,
+            height: 120.h,
+            child:
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(posts[post_id].title, style: TextStyle(fontSize: 28.sp)),
+                )
+          ),
+          Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.outline,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+          ),
+          child: SizedBox(
+            width: 400,
+            height: 500,
+            child: Text(posts[post_id].content, style: TextStyle(fontSize: 14.sp))
+          ),
+        ),
+          SizedBox(
+            width: 150.w,
+            height: 50.h,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) => const AboutPage(),
+                  ),
+                  );
+                },
+              child: const Text('back'),
+            ),
+            )
+          )
+        ]
+        )
+      )
+    );
+  }
+
+}
+
