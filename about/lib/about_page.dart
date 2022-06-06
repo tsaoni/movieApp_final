@@ -46,7 +46,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             'Index 0: Home',
             style: optionStyle,
           ),
-          const MyForm(),
+          const FormPage(),
         ].elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyForm extends StatefulWidget {
-  const MyForm({Key? key}) : super(key: key);
+class FormPage extends StatefulWidget {
+  const FormPage({Key? key}) : super(key: key);
 
   @override
-  State<MyForm> createState() => _MyFormState();
+  State<FormPage> createState() => _FormPageState();
 }
 
-class _MyFormState extends State<MyForm> {
+class _FormPageState extends State<FormPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -17,10 +18,14 @@ class _MyFormState extends State<MyForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("title"),
+          SizedBox(
+            width: 100.w,
+            height: 50.h,
+            child: Text('title', style: TextStyle(fontSize: 28.sp)),
+          ),
           TextFormField(
             decoration: const InputDecoration(
-              hintText: 'Enter your email',
+              hintText: 'please enter title',
             ),
             validator: (String? value) {
               if (value == null || value.isEmpty) {
@@ -29,38 +34,25 @@ class _MyFormState extends State<MyForm> {
               return null;
             },
           ),
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter your email',
+
+          Container(
+            width: 200.w,
+            height: 200.h,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter your email',
+            child: const TextField(
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                hintText: '1',
+                border: InputBorder.none,
+
+              ),
             ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter your email',
-            ),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
