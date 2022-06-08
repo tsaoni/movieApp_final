@@ -131,7 +131,7 @@ class myCard extends StatelessWidget {
                     ),
                     SizedBox(
                         child: Text(
-                          'username: username',
+                          'author:username',
                           style: TextStyle(
                             fontSize: 12.sp,
                             color: Color.fromRGBO(100, 100, 100, 1),
@@ -240,6 +240,13 @@ class _PostPageState extends State<PostPage> {
                         )
                       ],
                     ),
+                    Text(
+                      'author:username',
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Color.fromRGBO(100, 100, 100, 1)
+                      ),),
                     SizedBox(height: 10,),
                     Container(
                       width: 320,
@@ -252,7 +259,8 @@ class _PostPageState extends State<PostPage> {
                         padding: EdgeInsets.only(
                           top: 10,
                           left: 10,
-                          right: 10
+                          right: 10,
+                          bottom: 10,
                         ),
                         child: Text(posts[post_id].content,
                           style: TextStyle(fontSize: 14.sp, color: Color.fromRGBO(100, 100, 100, 1)),
