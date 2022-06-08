@@ -51,7 +51,6 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
               flexibleSpace: Container(
                 color: Colors.white,
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: 85,
