@@ -43,11 +43,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _selectedIndex = index;
       if(index == 2){
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => const MyLogin()),
+          ModalRoute.withName('/'),
+        );
+        /*
         Navigator.push(
           context, MaterialPageRoute(
           builder: (context) => const MyLogin(),
         ),
         );
+         */
       }
     });
   }
@@ -55,10 +62,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movie reviews'),
-        backgroundColor: Color.fromRGBO(116, 196, 199, 1),
-      ),
       body: Center(
         child: <Widget>[
           SelectCard(),

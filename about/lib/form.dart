@@ -18,7 +18,7 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late final Movie _selectedMovie;
+  late Movie _selectedMovie;
   var _movieController = "";
   final titleController = TextEditingController();
   final contentController = TextEditingController();
