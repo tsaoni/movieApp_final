@@ -17,7 +17,6 @@ class MovieFavorite extends StatelessWidget {
           return ListView.builder(
             key: const Key('movieFavorite'),
             itemCount: data.favoriteMovies.length,
-            // padding: const EdgeInsets.all(16.0),
             itemBuilder: (context, index) {
               final movie = data.favoriteMovies[index];
               return ItemCard(

@@ -1,1 +1,0 @@
-C:\Users\xiaoxuan\AndroidStudioProjects\movieApp_final\android\app\src\main\kotlin\com\dicoding\ditonton\MainActivity.kt

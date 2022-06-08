@@ -16,7 +16,10 @@ class MovieSearchPage extends StatelessWidget {
         title: const Text('Search Movie'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+            top: 16.0,
+            left: 5.0,
+            right: 5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,6 +28,7 @@ class MovieSearchPage extends StatelessWidget {
               onChanged: (query) {
                 context.read<MovieSearchBloc>().add(OnQueryChanged(query));
               },
+              style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
               decoration: InputDecoration(
                 hintText: 'Search movies',
                 hintStyle: TextStyle(
@@ -44,7 +48,7 @@ class MovieSearchPage extends StatelessWidget {
                 ),
               ),
               textInputAction: TextInputAction.search,
-              cursorColor: Colors.white,
+              cursorColor: Color.fromRGBO(116, 196, 199, 1),
             ),
             BlocBuilder<MovieSearchBloc, SearchState>(
               builder: (context, state) {
@@ -56,6 +60,7 @@ class MovieSearchPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w300,
+                        color: Color.fromRGBO(100, 100, 100, 1)
                       ),
                     ),
                   );

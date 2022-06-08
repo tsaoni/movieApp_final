@@ -1,3 +1,4 @@
+import 'package:about/register.dart';
 import 'package:flutter/material.dart';
 import 'about_page.dart';
 
@@ -14,7 +15,7 @@ class _MyLoginState extends State<MyLogin> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('login.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/login.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -96,7 +97,11 @@ class _MyLoginState extends State<MyLogin> {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, 'register');
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (context) => MyRegister(),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Sign Up',

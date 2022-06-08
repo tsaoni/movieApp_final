@@ -9,12 +9,8 @@ class AboutMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: 'login',
-        routes: {
-          'login': (context) => const MyLogin(),
-          'register': (context) => const MyRegister(),
-        });
+    return Scaffold(
+        body: MyLogin(),
+    );
   }
 }

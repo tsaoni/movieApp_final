@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'about_page.dart';
+import 'login.dart';
 
 class MyRegister extends StatefulWidget {
+  static const routeName = '/register';
   const MyRegister({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +16,7 @@ class _MyRegisterState extends State<MyRegister> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('register.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/register.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -124,7 +126,11 @@ class _MyRegisterState extends State<MyRegister> {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, 'login');
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (context) => MyLogin(),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Login',

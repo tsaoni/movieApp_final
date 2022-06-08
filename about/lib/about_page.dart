@@ -16,9 +16,9 @@ class AboutPage extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context , child) {
-        return const MaterialApp(
-          title: _title,
-          home: MyStatefulWidget(),
+        return const Scaffold(
+          // title: _title,
+          body: MyStatefulWidget(),
         );
       },
     );
@@ -48,7 +48,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        title: const Text('Movie reviews'),
+        backgroundColor: Color.fromRGBO(116, 196, 199, 1),
       ),
       body: Center(
         child: <Widget>[
@@ -57,18 +58,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ].elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 10,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.comment),
+            label: 'comment',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.edit),
+            label: 'add comment',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        backgroundColor: Colors.white,
+        unselectedItemColor: Color.fromRGBO(100, 100, 100, 1),
+        selectedItemColor: Color.fromRGBO(116, 196, 199, 1),
         onTap: _onItemTapped,
       ),
     );

@@ -16,7 +16,10 @@ class TvSearchPage extends StatelessWidget {
         title: const Text('Search Tv'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+            top: 16.0,
+            left: 5.0,
+            right: 5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,7 +47,7 @@ class TvSearchPage extends StatelessWidget {
                 ),
               ),
               textInputAction: TextInputAction.search,
-              cursorColor: Colors.white,
+                cursorColor: Color.fromRGBO(116, 196, 199, 1)
             ),
             BlocBuilder<TvSearchBloc, SearchState>(
               builder: (context, state) {
@@ -56,6 +59,7 @@ class TvSearchPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w300,
+                        color: Color.fromRGBO(100, 100, 100, 1)
                       ),
                     ),
                   );
