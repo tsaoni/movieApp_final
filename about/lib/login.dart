@@ -13,8 +13,9 @@ class _MyLoginState extends State<MyLogin> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('login.png'), fit: BoxFit.cover),
+        color: Colors.white,
+        //image: DecorationImage(
+           //image: AssetImage('login.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -23,7 +24,7 @@ class _MyLoginState extends State<MyLogin> {
             padding: const EdgeInsets.only(left: 35, top: 80),
             child: const Text(
               "Welcome\nBack",
-              style: TextStyle(color: Colors.white, fontSize: 33),
+              style: TextStyle(color: Color.fromRGBO(116, 196, 199, 1), fontSize: 33),
             ),
           ),
           SingleChildScrollView(
@@ -35,9 +36,8 @@ class _MyLoginState extends State<MyLogin> {
               child: Column(children: [
                 TextField(
                   decoration: InputDecoration(
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
                     hintText: 'Email',
+                    hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -49,9 +49,8 @@ class _MyLoginState extends State<MyLogin> {
                 TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
                     hintText: 'Password',
+                      hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -66,14 +65,14 @@ class _MyLoginState extends State<MyLogin> {
                     const Text(
                       'Sign In',
                       style: TextStyle(
-                        color: Color(0xff4c505b),
+                        color: Color.fromRGBO(116, 196, 199, 1),
                         fontSize: 27,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     CircleAvatar(
                       radius: 30,
-                      backgroundColor: const Color(0xff4c505b),
+                      backgroundColor: const Color.fromRGBO(116, 196, 199, 1),
                       child: IconButton(
                         color: Colors.white,
                         onPressed: () {
@@ -103,7 +102,7 @@ class _MyLoginState extends State<MyLogin> {
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 18,
-                            color: Color(0xff4c505b),
+                            color: Color.fromRGBO(116, 196, 199, 1),
                           ),
                         ),
                       ),
@@ -114,7 +113,7 @@ class _MyLoginState extends State<MyLogin> {
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 18,
-                            color: Color(0xff4c505b),
+                            color: Color.fromRGBO(116, 196, 199, 1),
                           ),
                         ),
                       ),

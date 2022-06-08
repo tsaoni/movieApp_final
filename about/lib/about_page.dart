@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'form.dart';
+import 'login.dart';
 import 'show_movie.dart';
 
 class AboutPage extends StatelessWidget {
@@ -41,6 +42,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if(index == 2){
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => const MyLogin(),
+        ),
+        );
+      }
     });
   }
 
@@ -54,6 +62,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         child: <Widget>[
           SelectCard(),
           const FormPage(),
+          const MyLogin(),
         ].elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -65,6 +74,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
             label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'logout',
           ),
         ],
         currentIndex: _selectedIndex,

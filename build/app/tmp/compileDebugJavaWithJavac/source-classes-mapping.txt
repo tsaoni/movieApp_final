@@ -1,4 +1,0 @@
-com/dicoding/ditonton/BuildConfig.java
- com.dicoding.ditonton.BuildConfig
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
