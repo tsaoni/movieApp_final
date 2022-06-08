@@ -12,11 +12,21 @@ class MyRegister extends StatefulWidget {
 
 class _MyRegisterState extends State<MyRegister> {
   @override
+  var a = 1;
+  var count = 0;
+  List <String>arr = [];
+  List <String>arr1 = [];
+  List <String>arr2 = [];
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/register.png'), fit: BoxFit.cover),
+        color: Colors.white,
+         //image: DecorationImage(
+             //image: AssetImage('test.png'), fit: BoxFit.cover),
       ),
       child: Scaffold(
         appBar: AppBar(
@@ -29,7 +39,7 @@ class _MyRegisterState extends State<MyRegister> {
             padding: const EdgeInsets.only(left: 35, top: 80),
             child: const Text(
               "Create\nAccount",
-              style: TextStyle(color: Colors.white, fontSize: 33),
+              style: TextStyle(color: Color.fromRGBO(116, 196, 199, 1), fontSize: 33),
             ),
           ),
           SingleChildScrollView(
@@ -40,24 +50,35 @@ class _MyRegisterState extends State<MyRegister> {
                   top: MediaQuery.of(context).size.height * 0.27),
               child: Column(children: [
                 TextField(
+                  controller: nameController,
                   decoration: InputDecoration(
+                    //filled: true,
+                   //fillColor: const Color.fromRGBO(116, 196, 199, 1),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.black),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Color.fromRGBO(116, 196, 199, 1)),
                     ),
                     hintText: 'Name',
-                    hintStyle: const TextStyle(color: Colors.white),
+                    hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),
                   ),
+                  onChanged: (text){
+                    // arr[count] = text;
+                   // print(text);
+
+                  },
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
+                    //filled: true,
+                    //fillColor: const Color.fromRGBO(116, 196, 199, 1),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.black),
@@ -67,7 +88,7 @@ class _MyRegisterState extends State<MyRegister> {
                       borderSide: const BorderSide(color: Colors.white),
                     ),
                     hintText: 'Email',
-                    hintStyle: const TextStyle(color: Colors.white),
+                    hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),
                   ),
                 ),
                 const SizedBox(
@@ -75,7 +96,10 @@ class _MyRegisterState extends State<MyRegister> {
                 ),
                 TextField(
                   obscureText: true,
+                  controller: passwordController,
                   decoration: InputDecoration(
+                    //filled: true,
+                    //fillColor: const Color.fromRGBO(116, 196, 199, 1),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.black),
@@ -85,7 +109,7 @@ class _MyRegisterState extends State<MyRegister> {
                       borderSide: const BorderSide(color: Colors.white),
                     ),
                     hintText: 'Password',
-                    hintStyle: const TextStyle(color: Colors.white),
+                    hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),
                   ),
                 ),
                 const SizedBox(
@@ -97,17 +121,22 @@ class _MyRegisterState extends State<MyRegister> {
                       const Text(
                         'Sign In',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromRGBO(116, 196, 199, 1),
                           fontSize: 27,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       CircleAvatar(
                         radius: 30,
-                        backgroundColor: const Color(0xff4c505b),
+                        backgroundColor: const Color.fromRGBO(116, 196, 199, 1),
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {
+                            arr.add(nameController.text);
+                            arr1.add(emailController.text);
+                            arr2.add(passwordController.text);
+                            print(arr);
+                            //count += 1;
                             Navigator.push(
                               context, MaterialPageRoute(
                               builder: (context) => const AboutPage(),
@@ -137,7 +166,7 @@ class _MyRegisterState extends State<MyRegister> {
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 18,
-                            color: Colors.white,
+                            color: Color.fromRGBO(116, 196, 199, 1),
                           ),
                         ),
                       ),
