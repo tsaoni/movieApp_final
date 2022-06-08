@@ -47,6 +47,7 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(300.0),
             child: AppBar(
+              title: Text('Favorite',),
               flexibleSpace: Container(
                 color: Colors.white,
                 child: Column(
