@@ -28,6 +28,7 @@ class TvSearchPage extends StatelessWidget {
               onChanged: (query) {
                 context.read<TvSearchBloc>().add(OnQueryChanged(query));
               },
+              style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
               decoration: InputDecoration(
                 hintText: 'Search tv shows',
                 hintStyle: TextStyle(
