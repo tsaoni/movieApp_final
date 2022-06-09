@@ -231,7 +231,6 @@ class _FormPageState extends State<FormPage> {
                                 _movieController = "PLEASE SELECT A MOVIE!!!";
                               });} else if (_formKey.currentState!.validate()) {
                               posts.add(Post(titleController.text, _selectedMovie, contentController.text, 'tsaoni'));
->>>>>>> 6ce2f20f6ed001f41ef62d375241343cbf033992
                               titleController.clear();
                               contentController.clear();
                             }

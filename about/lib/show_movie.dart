@@ -101,7 +101,7 @@ class myCard extends StatelessWidget {
                   height: 70.h,
                   child:
                   Center(
-                      child: ListTile(title: Text('my posts', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,
+                      child: ListTile(title: Text('posts', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,
                         color: const Color.fromRGBO(100, 100, 100, 1),) ),)
                   )
               )
