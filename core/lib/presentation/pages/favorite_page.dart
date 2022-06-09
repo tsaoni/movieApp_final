@@ -45,23 +45,17 @@ class _FavoritePageState extends State<FavoritePage> with RouteAware {
         length: 2,
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(300.0),
+            preferredSize: Size.fromHeight(130.0),
             child: AppBar(
+              title: Text('Favorite',),
               flexibleSpace: Container(
                 color: Colors.white,
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: 85,
                       color: Color.fromRGBO(116, 196, 199, 1),
                     ),
-                    SizedBox(height: 50),
-                    Container(
-                      width: 100,
-                      height: 100,
-                      color: Color.fromRGBO(116, 196, 199, 1),
-                    )
                   ],
                 ),
               ),

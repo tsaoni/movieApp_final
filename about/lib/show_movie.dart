@@ -101,7 +101,7 @@ class myCard extends StatelessWidget {
                   height: 70.h,
                   child:
                   Center(
-                      child: ListTile(title: Text('my posts', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,
+                      child: ListTile(title: Text('posts', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,
                         color: const Color.fromRGBO(100, 100, 100, 1),) ),)
                   )
               )
@@ -150,11 +150,19 @@ class myCard extends StatelessWidget {
                   children: [
                     SizedBox(height: 10,),
                     SizedBox(
-                      child: Text(posts[_index].title, style: TextStyle(fontSize: 20.sp, color: const Color.fromRGBO(116, 196, 199, 1)) ),
+                      width: 250,
+                      child: Text(
+                          posts[_index].title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(116, 196, 199, 1))),
                     ),
                     SizedBox(
+                      width: 250,
                       child: Text(
                         'movie : ${posts[_index].movie.title ?? '_'}',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: TextStyle(fontSize: 15.sp, color: Color.fromRGBO(100, 100, 100, 1))
                       ),
                     ),
@@ -219,12 +227,16 @@ class _PostPageState extends State<PostPage> {
         child: Column(
             children: <Widget>[
               SizedBox(
-                  width: 200.w,
+                  width: 320.w,
                   height: 120.h,
                   child:
                   Align(
                     alignment: Alignment.center,
-                    child: Text(posts[post_id].title, style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold, color: Color.fromRGBO(116, 196, 199, 1))),
+                    child: Text(
+                        posts[post_id].title,
+                        style: TextStyle(fontSize: 24.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(116, 196, 199, 1))),
                   )
               ),
               SizedBox(

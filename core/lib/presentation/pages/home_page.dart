@@ -100,40 +100,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       ),
                       const SizedBox(height: 128.0),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: const Image(
-                                image: AssetImage('assets/user.png'),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16.0),
-                          Expanded(
-                            flex: 3,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Abu Aziz',
-                                  style: kHeading6.copyWith(
-                                    fontSize: 16.0,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Text(
-                                  'abuaziz@mail.co',
-                                  style: kBodyText.copyWith(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: ClipRRect(
+                      //         borderRadius: BorderRadius.circular(8.0),
+                      //         child: const Image(
+                      //           image: AssetImage('assets/user.png'),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     const SizedBox(width: 16.0),
+                      //     Expanded(
+                      //       flex: 3,
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             'Abu Aziz',
+                      //             style: kHeading6.copyWith(
+                      //               fontSize: 16.0,
+                      //               color: Colors.grey,
+                      //             ),
+                      //           ),
+                      //           Text(
+                      //             'abuaziz@mail.co',
+                      //             style: kBodyText.copyWith(
+                      //               color: Colors.grey,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                       const SizedBox(height: 32.0),
                       Consumer<HomeNotifier>(builder: (context, data, child) {
                         return Column(

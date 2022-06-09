@@ -45,6 +45,7 @@ class _MyLoginState extends State<MyLogin> {
                     top: MediaQuery.of(context).size.height * 0.5),
                 child: Column(children: [
                   TextField(
+                    style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
                     decoration: InputDecoration(
                       hintText: 'Email',
                       hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),
@@ -58,6 +59,7 @@ class _MyLoginState extends State<MyLogin> {
                   ),
                   TextField(
                     obscureText: true,
+                    style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
                     decoration: InputDecoration(
                       hintText: 'Password',
                         hintStyle: const TextStyle(color: Color.fromRGBO(116, 196, 199, 1)),

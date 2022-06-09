@@ -56,6 +56,7 @@ class _MyRegisterState extends State<MyRegister> {
                 child: Column(children: [
                   TextField(
                     controller: nameController,
+                    style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
                     decoration: InputDecoration(
                       //filled: true,
                      //fillColor: const Color.fromRGBO(116, 196, 199, 1),
@@ -81,6 +82,7 @@ class _MyRegisterState extends State<MyRegister> {
                   ),
                   TextField(
                     controller: emailController,
+                    style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
                     decoration: InputDecoration(
                       //filled: true,
                       //fillColor: const Color.fromRGBO(116, 196, 199, 1),
@@ -102,6 +104,7 @@ class _MyRegisterState extends State<MyRegister> {
                   TextField(
                     obscureText: true,
                     controller: passwordController,
+                    style: TextStyle(color: Color.fromRGBO(100, 100, 100, 1)),
                     decoration: InputDecoration(
                       //filled: true,
                       //fillColor: const Color.fromRGBO(116, 196, 199, 1),
