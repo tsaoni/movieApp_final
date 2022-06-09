@@ -2,6 +2,8 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'form.dart';
+import 'login.dart';
+import 'revise.dart';
 import 'show_movie.dart';
 
 class AboutPage extends StatelessWidget {
@@ -41,20 +43,32 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if(index == 3){
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => const MyLogin()),
+          ModalRoute.withName('/'),
+        );
+        /*
+        Navigator.push(
+          context, MaterialPageRoute(
+          builder: (context) => const MyLogin(),
+        ),
+        );
+         */
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movie reviews'),
-        backgroundColor: Color.fromRGBO(116, 196, 199, 1),
-      ),
       body: Center(
         child: <Widget>[
-          SelectCard(),
+          const TabsScreen(),
           const FormPage(),
+          RevisePage(),
+          const MyLogin(),
         ].elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -67,6 +81,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.edit),
             label: 'add comment',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'personal info',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'logout',
           ),
         ],
         currentIndex: _selectedIndex,

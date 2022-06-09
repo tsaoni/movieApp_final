@@ -3,16 +3,45 @@ import 'package:core/utils/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie/presentation/widgets/item_card_list.dart';
-import 'dart:math';
 import 'Post.dart';
 import 'about.dart';
 
 
 int subtitle_size = 10;
+int current_tab = 0;
+
+class TabsScreen extends StatelessWidget {
+  const TabsScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('posts'),
+          bottom: const TabBar(
+            labelColor: Color.fromRGBO(116, 196, 199, 1),
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(icon: Icon(Icons.star), text: 'all posts'),
+              Tab(icon: Icon(Icons.favorite), text: 'my posts')
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [SelectCard(const {0}), SelectCard(const {1})],
+        ),
+      ),
+    );
+  }
+}
+
 
 class SelectCard extends StatefulWidget {
 
-  SelectCard({Key? key}) : super(key: key){
+  SelectCard(Set<int>set, {Key? key}) : super(key: key){
+    current_tab = set.first;
   }
 
   @override
@@ -73,7 +102,7 @@ class myCard extends StatelessWidget {
                   child:
                   Center(
                       child: ListTile(title: Text('my posts', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(100, 100, 100, 1),) ),)
+                        color: const Color.fromRGBO(100, 100, 100, 1),) ),)
                   )
               )
           ),
@@ -126,7 +155,7 @@ class myCard extends StatelessWidget {
                           posts[_index].title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(116, 196, 199, 1)) ),
+                          style: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(116, 196, 199, 1))),
                     ),
                     SizedBox(
                       width: 250,
