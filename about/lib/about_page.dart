@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'form.dart';
 import 'login.dart';
+import 'revise.dart';
 import 'show_movie.dart';
 
 class AboutPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if(index == 2){
+      if(index == 3){
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (BuildContext context) => const MyLogin()),
@@ -64,8 +65,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Scaffold(
       body: Center(
         child: <Widget>[
-          SelectCard(),
+          const TabsScreen(),
           const FormPage(),
+          RevisePage(),
           const MyLogin(),
         ].elementAt(_selectedIndex),
       ),
@@ -79,6 +81,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.edit),
             label: 'add comment',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'personal info',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.logout),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Post.dart';
 import 'about_page.dart';
 import 'login.dart';
 
@@ -13,10 +14,6 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   @override
   var a = 1;
-  var count = 0;
-  List <String>arr = [];
-  List <String>arr1 = [];
-  List <String>arr2 = [];
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();

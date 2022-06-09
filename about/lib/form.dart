@@ -107,7 +107,7 @@ class _FormPageState extends State<FormPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              posts.add(Post(titleController.text, _selectedMovie, contentController.text));
+                              posts.add(Post(titleController.text, _selectedMovie, contentController.text, 'tsaoni'));
                               titleController.clear();
                               contentController.clear();
                             }
